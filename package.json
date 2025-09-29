@@ -1,6 +1,9 @@
 {
   "name": "front-safework",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Work Safety Application",
+  "author": "NexoraPe",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
