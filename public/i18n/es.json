@@ -1,3 +1,22 @@
 {
-
+  "footer": {
+    "text": "© 2025 SafeWork. Todos los derechos reservados."
+  },
+  "login": {
+    "title": "Iniciar sesión en su cuenta",
+    "description": "Ingrese su correo electrónico y contraseña a continuación.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Iniciar sesión",
+    "noAccount": "¿No tienes una cuenta? Regístrate",
+    "forgotPassword": "¿Olvidaste tu contraseña?"
+  },
+  "signup": {
+    "title": "Crear una nueva cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "submit": "Regístrate",
+    "haveAccount": "¿Ya tienes una cuenta? Iniciar sesión"
+  }
 }
