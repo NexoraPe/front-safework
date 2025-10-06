@@ -1,3 +1,120 @@
 {
-
+  "users": [
+    {
+      "id": 1,
+      "email": "worker1@nexora.pe",
+      "password": "hashedPassword123",
+      "role": "worker",
+      "firstName": "Juan",
+      "lastName": "Perez",
+      "dni": "12345678",
+      "phoneNumber": "987654321",
+      "dateOfBirth": "1990-05-15",
+      "gender": "Male"
+    },
+    {
+      "id": 2,
+      "email": "employer1@nexora.pe",
+      "password": "hashedPassword456",
+      "role": "employer",
+      "firstName": "Maria",
+      "lastName": "Gomez",
+      "dni": "87654321",
+      "phoneNumber": "912345678",
+      "dateOfBirth": "1985-03-22",
+      "gender": "Female"
+    }
+  ],
+  "incidents": [
+    {
+      "id": 1,
+      "title": "Machinery Malfunction",
+      "description": "Forklift stopped working in warehouse.",
+      "status": "open",
+      "createdBy": 1,
+      "createdAt": "2025-10-01T10:00:00Z",
+      "fileUrl": "https://example.com/docs/incident1.pdf"
+    },
+    {
+      "id": 2,
+      "title": "Slippery Floor Reported",
+      "description": "Wet floor in production area.",
+      "status": "in_progress",
+      "createdBy": 1,
+      "createdAt": "2025-10-02T12:00:00Z",
+      "fileUrl": "https://example.com/docs/incident2.pdf"
+    },
+    {
+      "id": 3,
+      "title": "Safety Gear Issue",
+      "description": "Missing helmets in storage.",
+      "status": "closed",
+      "createdBy": 2,
+      "createdAt": "2025-09-30T09:00:00Z",
+      "fileUrl": "https://example.com/docs/incident3.pdf"
+    }
+  ],
+  "assignments": [
+    {
+      "id": 1,
+      "incidentId": 1,
+      "assignedTo": 2,
+      "status": "open",
+      "summary": "Investigate forklift issue in warehouse."
+    },
+    {
+      "id": 2,
+      "incidentId": 2,
+      "assignedTo": 2,
+      "status": "in_progress",
+      "summary": "Clean and secure production area."
+    },
+    {
+      "id": 3,
+      "incidentId": 3,
+      "assignedTo": 2,
+      "status": "closed",
+      "summary": "Order new helmets for storage."
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "userId": 2,
+      "type": "new_incident",
+      "message": "New incident reported: Machinery Malfunction",
+      "createdAt": "2025-10-01T10:05:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "type": "status_update",
+      "message": "Incident #2 status updated to In Progress",
+      "createdAt": "2025-10-02T12:05:00Z"
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "type": "assignment",
+      "message": "You have been assigned to incident #1",
+      "createdAt": "2025-10-01T10:10:00Z"
+    }
+  ],
+  "analytics": {
+    "open": {
+      "count": 1,
+      "percentage": 33.33,
+      "description": "Incidents newly reported, pending actions."
+    },
+    "in_progress": {
+      "count": 1,
+      "percentage": 33.33,
+      "description": "Incidents currently being addressed."
+    },
+    "closed": {
+      "count": 1,
+      "percentage": 33.33,
+      "description": "Incidents resolved and closed."
+    }
+  }
 }
