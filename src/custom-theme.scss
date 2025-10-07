@@ -53,5 +53,9 @@ body {
 }
 
 .mdc-list-item__content{
-  overflow: visible;
+  overflow: visible !important;
+}
+
+.mdc-list-item__primary-text{
+  overflow: visible !important;
 }
