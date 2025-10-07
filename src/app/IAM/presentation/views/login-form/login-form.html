@@ -16,8 +16,7 @@
   </mat-card-content>
 
   <mat-card-footer>
-    <button mat-raised-button color="primary">{{ 'login.submit' | translate }}</button>
-    <a mat-button routerLink="/register">{{ 'login.noAccount' | translate }}</a>
+    <button mat-raised-button color="primary" (click)="onLogin()">{{ 'login.submit' | translate }}</button>    <a mat-button routerLink="/register">{{ 'login.noAccount' | translate }}</a>
     <a mat-button routerLink="/forgot-password">{{ 'login.forgotPassword' | translate }}</a>
   </mat-card-footer>
 </mat-card>

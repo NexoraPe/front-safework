@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import {
   MatCard,
   MatCardContent,
@@ -31,5 +33,13 @@ import {MatInput} from '@angular/material/input';
   styleUrl: './login-form.css'
 })
 export class LoginForm {
+  constructor(private router: Router) {}
 
+  onLogin(): void {
+    // Aquí iría la lógica de autenticación
+    // Por ejemplo: this.authService.login(...)
+
+    // Una vez autenticado, navegar a /app
+    this.router.navigate(['/app']);
+  }
 }
