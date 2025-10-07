@@ -2,7 +2,6 @@ import {Component, Input} from '@angular/core';
 import {MatListItem, MatNavList} from '@angular/material/list';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
-import {MatButton} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 
 @Component({
