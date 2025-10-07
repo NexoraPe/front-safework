@@ -1,0 +1,19 @@
+mat-sidenav-container {
+  height: 100vh;
+}
+
+mat-sidenav {
+  background-color: #11162D;
+  width: 350px;
+  padding: 20px 0;
+}
+
+.image-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 50px;
+}
+
+

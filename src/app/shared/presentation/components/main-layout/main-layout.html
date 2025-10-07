@@ -1,5 +1,19 @@
 <main>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
+  <mat-sidenav-container>
+    <!-- Side Navigation -->
+    <mat-sidenav mode="side" opened>
+      <div class="image-logo-container">
+        <img ngSrc="/safework-logo.png" alt="App Logo" class="app-logo" width="200" height="160"/>
+      </div>
+      <app-toolbar [options]="sidebarOptions"></app-toolbar>
+      <app-language-switcher/>
+    </mat-sidenav>
+
+    <!-- Main Content -->
+    <mat-sidenav-content>
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </main>
