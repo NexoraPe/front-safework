@@ -18,5 +18,12 @@
     "confirmPassword": "Confirmar contraseña",
     "submit": "Regístrate",
     "haveAccount": "¿Ya tienes una cuenta? Iniciar sesión"
+  },
+  "option": {
+    "profile": "Perfil",
+    "incidents": "Incidentes",
+    "assignments": "Asignaciones",
+    "notifications": "Notificaciones",
+    "analytics": "Analíticas"
   }
 }

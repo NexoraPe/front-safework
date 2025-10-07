@@ -18,5 +18,12 @@
     "confirmPassword": "Confirm Password",
     "submit": "Sign Up",
     "haveAccount": "Already have an account? Login"
+  },
+  "option": {
+    "profile": "Profile",
+    "incidents": "Incidents",
+    "assignments": "Assignments",
+    "notifications": "Notifications",
+    "analytics": "Analytics"
   }
 }
