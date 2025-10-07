@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ 'signup.title' | translate }} </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'signup.email' | translate }}</mat-label>
+      <input matInput type="email" required />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'signup.password' | translate }}</mat-label>
+      <input matInput type="password" required />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'signup.confirmPassword' | translate }}</mat-label>
+      <input matInput type="password" required />
+    </mat-form-field>
+    <mat-button-toggle-group name="role" aria-label="Roles" appearance="standard" [hideSingleSelectionIndicator]="true">
+      <mat-button-toggle value="employer">Employer</mat-button-toggle>
+      <mat-button-toggle value="worker">Worker</mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-card-content>
+
+  <mat-card-footer>
+    <button mat-raised-button color="primary">{{ 'signup.submit' | translate }}</button>
+    <a mat-button routerLink="/login">{{ 'signup.haveAccount' | translate }}</a>
+  </mat-card-footer>
+</mat-card>
