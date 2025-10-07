@@ -5,8 +5,12 @@
       <div class="image-logo-container">
         <img ngSrc="/safework-logo.png" alt="App Logo" class="app-logo" width="200" height="160"/>
       </div>
+
       <app-toolbar [options]="sidebarOptions"></app-toolbar>
-      <app-language-switcher/>
+
+      <div class="switcher-container">
+        <app-language-switcher/>
+      </div>
     </mat-sidenav>
 
     <!-- Main Content -->
