@@ -1,1 +1,7 @@
-<p>toolbaasdasdar works!</p>
+<mat-nav-list>
+  @for(option of options; track option.label) {
+    <a mat-list-item [routerLink]="option.link" routerLinkActive="active-link">
+      {{ option.label | translate }}
+    </a>
+  }
+</mat-nav-list>
