@@ -1,1 +1,41 @@
-<p>profile-form works!</p>
+<div class="profile-container" *ngIf="user as u">
+  <h1 class="welcome-title">¡{{ 'profile.welcome' | translate }} {{ u.firstName }}!</h1>
+  <h2 class="section-title">{{ 'profile.personalInformation' | translate }}</h2>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <label>{{ 'profile.firstName' | translate }}</label>
+      <p>{{ u.firstName }}</p>
+    </div>
+    <div class="info-card">
+      <label>{{ 'profile.lastName' | translate }}</label>
+      <p>{{ u.lastName }}</p>
+    </div>
+    <div class="info-card">
+      <label>{{ 'profile.dni' | translate }}</label>
+      <p>{{ u.dni }}</p>
+    </div>
+    <div class="info-card">
+      <label>{{ 'profile.phoneNumber' | translate }}</label>
+      <p>{{ u.phoneNumber }}</p>
+    </div>
+    <div class="info-card">
+      <label>{{ 'profile.dateOfBirth' | translate }}</label>
+      <p>{{ u.dateOfBirth | date }}</p>
+    </div>
+    <div class="info-card">
+      <label>{{ 'profile.gender' | translate }}</label>
+      <p>{{ u.gender }}</p>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button class="btn edit">{{ 'profile.editInfo' | translate }}</button>
+    <button class="btn logout">{{ 'profile.logout' | translate }}</button>
+    <button class="btn delete">{{ 'profile.deleteAccount' | translate }}</button>
+  </div>
+</div>
+
+<div *ngIf="!user" class="loading">
+  {{ 'profile.loading' | translate }}
+</div>

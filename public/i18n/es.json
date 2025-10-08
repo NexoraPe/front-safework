@@ -25,5 +25,20 @@
     "assignments": "Asignaciones",
     "notifications": "Notificaciones",
     "analytics": "Analíticas"
+  },
+  "profile": {
+    "welcome": "Bienvenido",
+    "personalInformation": "Información Personal",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "dni": "DNI",
+    "phoneNumber": "Teléfono",
+    "dateOfBirth": "Fecha de Nacimiento",
+    "gender": "Género",
+    "role": "Rol",
+    "editInfo": "Editar Información",
+    "logout": "Cerrar Sesión",
+    "deleteAccount": "Eliminar Cuenta",
+    "loading": "Cargando perfil..."
   }
 }
