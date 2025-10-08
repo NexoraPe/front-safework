@@ -1,0 +1,12 @@
+<div class="analytics-grid">
+  @for(analytic of analytics; track analytic.title){
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ analytic.title | translate }} ({{ analytic.percentage }})%:</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        {{ analytic.description | translate }}
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
