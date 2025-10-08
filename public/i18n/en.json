@@ -25,5 +25,20 @@
     "assignments": "Assignments",
     "notifications": "Notifications",
     "analytics": "Analytics"
+  },
+  "profile": {
+    "welcome": "Welcome",
+    "personalInformation": "Personal Information",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "dni": "DNI",
+    "phoneNumber": "Phone Number",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "role": "Role",
+    "editInfo": "Edit Information",
+    "logout": "Log Out",
+    "deleteAccount": "Delete Account",
+    "loading": "Loading profile..."
   }
 }
