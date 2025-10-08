@@ -40,5 +40,14 @@
     "logout": "Log Out",
     "deleteAccount": "Delete Account",
     "loading": "Loading profile..."
+  },
+  "analytics": {
+    "title": "Analytics",
+    "open": "Open",
+    "openDescription": "Incidents newly reported, pending action.",
+    "inProgress": "In Progress",
+    "inProgressDescription": "Incidents actively being handled by teams.",
+    "closed": "Closed",
+    "closedDescription": "Resolved and finalized incidents."
   }
 }
