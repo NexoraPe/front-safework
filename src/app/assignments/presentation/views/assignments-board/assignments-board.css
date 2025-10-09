@@ -1,0 +1,383 @@
+.assignments-board-container {
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Header Section */
+.board-header {
+  background-color: #1a1a2e;
+  color: white;
+  padding: 2rem 3rem;
+  margin: -2rem -2rem 2rem;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.board-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Status Legend */
+.status-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.legend-indicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.legend-indicator.status-open {
+  background-color: #9e9e9e;
+}
+
+.legend-indicator.status-in-progress {
+  background-color: #7e57c2;
+}
+
+.legend-indicator.status-closed {
+  background-color: #2c2c2c;
+}
+
+.legend-label {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  gap: 1rem;
+}
+
+.loading-container p {
+  font-size: 1.125rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+/* Board Content */
+.board-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+/* Status Section */
+.status-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid;
+}
+
+.section-title mat-icon {
+  font-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.open-title {
+  border-bottom-color: #9e9e9e;
+  color: #424242;
+}
+
+.in-progress-title {
+  border-bottom-color: #7e57c2;
+  color: #5e35b1;
+}
+
+.closed-title {
+  border-bottom-color: #2c2c2c;
+  color: #1a1a1a;
+}
+
+.count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+/* Assignments List */
+.assignments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  border: 2px dashed rgba(0, 0, 0, 0.1);
+}
+
+.empty-state mat-icon {
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Empty Board State */
+.empty-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.empty-board .empty-icon {
+  font-size: 6rem;
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.4;
+}
+
+.empty-board h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.empty-board p {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+/* Footer */
+.board-footer {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  margin-top: 3rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.board-footer p {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .assignments-board-container {
+    padding: 1.5rem;
+  }
+
+  .board-header {
+    padding: 1.5rem 2rem;
+    margin: -1.5rem -1.5rem 1.5rem;
+  }
+
+  .board-title {
+    font-size: 2rem;
+  }
+
+  .status-legend {
+    gap: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .assignments-board-container {
+    padding: 1rem;
+  }
+
+  .board-header {
+    padding: 1.5rem 1rem;
+    margin: -1rem -1rem 1rem;
+  }
+
+  .board-title {
+    font-size: 1.75rem;
+  }
+
+  .status-legend {
+    gap: 1rem;
+  }
+
+  .legend-item {
+    font-size: 0.875rem;
+  }
+
+  .legend-indicator {
+    width: 20px;
+    height: 20px;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .section-title mat-icon {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .board-content {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-header {
+    padding: 1rem;
+  }
+
+  .board-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .status-legend {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+  }
+
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+
+  .empty-board {
+    padding: 2rem 1rem;
+  }
+
+  .empty-board .empty-icon {
+    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .empty-board h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .board-header {
+    background-color: transparent;
+    color: black;
+    box-shadow: none;
+    border-bottom: 2px solid black;
+  }
+
+  .legend-indicator {
+    border: 2px solid black;
+  }
+
+  .section-title {
+    page-break-before: always;
+  }
+
+  .section-title:first-of-type {
+    page-break-before: avoid;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .assignments-board-container {
+    background-color: #121212;
+    color: white;
+  }
+
+  .board-header {
+    background-color: #1e1e1e;
+  }
+
+  .loading-container p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .empty-state {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .empty-board {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .board-footer {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .board-footer p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+

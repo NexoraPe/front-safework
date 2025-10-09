@@ -28,3 +28,8 @@ mat-sidenav {
   margin-top: 50px;
 }
 
+.mat-drawer {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+

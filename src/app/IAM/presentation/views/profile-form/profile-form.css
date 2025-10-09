@@ -1,0 +1,81 @@
+.profile-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  background: #120625;
+  padding: 5rem;
+  border-radius: 1px;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #34495e;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.info-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.info-card label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #7B7DC1;
+}
+
+.info-card p {
+  font-size: 1.1rem;
+  margin-top: 0.3rem;
+  color: #222;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+  background-color: #7B7DC1;
+  color: #fff;
+}
+
+.btn:hover {
+  filter: brightness(0.9);
+  transform: scale(1.02);
+}
+
+.loading {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.2rem;
+}

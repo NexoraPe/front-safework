@@ -25,5 +25,104 @@
     "assignments": "Asignaciones",
     "notifications": "Notificaciones",
     "analytics": "Analíticas"
+  },
+  "profile": {
+    "welcome": "Bienvenido",
+    "personalInformation": "Información Personal",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "dni": "DNI",
+    "phoneNumber": "Teléfono",
+    "dateOfBirth": "Fecha de Nacimiento",
+    "gender": "Género",
+    "role": "Rol",
+    "editInfo": "Editar Información",
+    "logout": "Cerrar Sesión",
+    "deleteAccount": "Eliminar Cuenta",
+    "loading": "Cargando perfil..."
+  },
+  "analytics": {
+    "title": "Analíticas",
+    "open": "Abierto",
+    "openDescription": "Incidentes recién reportados, pendientes de acción.",
+    "inProgress": "En Progreso",
+    "inProgressDescription": "Incidentes que están siendo manejados activamente por los equipos.",
+    "closed": "Cerrado",
+    "closedDescription": "Incidentes resueltos y finalizados."
+  },
+  "notifications": {
+    "page": {
+      "title": "Notificaciones",
+      "description": "Mantente actualizado con las últimas alertas y actualizaciones"
+    },
+    "list": {
+      "loading": "Cargando notificaciones...",
+      "error": "Error al cargar las notificaciones. Por favor, inténtalo de nuevo más tarde.",
+      "ariaLabel": "Lista de notificaciones",
+      "empty": {
+        "title": "Sin notificaciones",
+        "message": "¡Estás al día! Vuelve más tarde para nuevas actualizaciones."
+      }
+    },
+    "item": {
+      "ariaLabel": "Elemento de notificación",
+      "incidentId": "ID del incidente"
+    },
+    "type": {
+      "EMAIL": "Notificación por correo",
+      "SMS": "Notificación por SMS",
+      "PUSH": "Notificación push"
+    },
+    "status": {
+      "PENDING": "Pendiente",
+      "SENT": "Enviado",
+      "FAILED": "Fallido"
+    }
+  },
+  "assignments": {
+    "board": {
+      "title": "Tablero de asignaciones",
+      "ariaLabel": "Tablero de asignaciones",
+      "legendAriaLabel": "Leyenda de estados",
+      "loadingAriaLabel": "Cargando asignaciones",
+      "loadingText": "Cargando asignaciones...",
+      "openTitle": "Abierto",
+      "openSectionAriaLabel": "Sección de asignaciones abiertas",
+      "noOpenAssignments": "No hay asignaciones abiertas",
+      "inProgressTitle": "En Progreso",
+      "inProgressSectionAriaLabel": "Sección de asignaciones en progreso",
+      "noInProgressAssignments": "No hay asignaciones en progreso",
+      "closedTitle": "Cerrado",
+      "closedSectionAriaLabel": "Sección de asignaciones cerradas",
+      "noClosedAssignments": "No hay asignaciones cerradas",
+      "emptyTitle": "No se encontraron asignaciones",
+      "emptyDescription": "Actualmente no hay asignaciones para mostrar.",
+      "footer": "© 2025 SafeWork. Todos los derechos reservados."
+    },
+    "card": {
+      "ariaLabel": "Tarjeta de asignación",
+      "assigneeAriaLabel": "Información del asignado",
+      "timelineAriaLabel": "Información de línea de tiempo",
+      "assignedTo": "Asignado a:",
+      "assignedAt": "Asignado:",
+      "completedAt": "Completado:"
+    },
+    "sla": {
+      "ariaLabel": "Información del SLA",
+      "priorityAriaLabel": "Indicador de prioridad",
+      "priority": "Prioridad:",
+      "dueDate": "Fecha límite:"
+    },
+    "status": {
+      "OPEN": "Abierto",
+      "IN_PROGRESS": "En Progreso",
+      "CLOSED": "Cerrado"
+    },
+    "priority": {
+      "LOW": "Baja",
+      "MEDIUM": "Media",
+      "HIGH": "Alta",
+      "CRITICAL": "Crítica"
+    }
   }
 }

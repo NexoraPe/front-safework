@@ -1,0 +1,31 @@
+<div 
+  class="sla-container" 
+  role="region"
+  [attr.aria-label]="'assignments.sla.ariaLabel' | translate">
+  
+  <!-- Priority Badge -->
+  <mat-chip-set [attr.aria-label]="'assignments.sla.priorityAriaLabel' | translate">
+    <mat-chip 
+      [color]="getPriorityColor()"
+      [class.overdue]="isOverdue()"
+      [attr.aria-label]="('assignments.sla.priority' | translate) + ': ' + sla.priority">
+      <mat-icon class="chip-icon">{{ getPriorityIcon() }}</mat-icon>
+      <span>{{ 'assignments.sla.priority' | translate }}</span>
+      <strong>{{ sla.priority }}</strong>
+    </mat-chip>
+  </mat-chip-set>
+
+  <!-- Due Date Information -->
+  <div class="sla-due-date" [class.overdue]="isOverdue()">
+    <mat-icon class="due-date-icon">schedule</mat-icon>
+    <div class="due-date-info">
+      <span class="due-date-label">{{ 'assignments.sla.dueDate' | translate }}</span>
+      <time [attr.datetime]="sla.dueDate.toISOString()" class="due-date-value">
+        {{ sla.dueDate | date:'short' }}
+      </time>
+      <span class="time-remaining" [class.overdue-text]="isOverdue()">
+        {{ getTimeRemaining() }}
+      </span>
+    </div>
+  </div>
+</div>

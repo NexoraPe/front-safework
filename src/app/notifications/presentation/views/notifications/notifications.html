@@ -1,1 +1,13 @@
-<p>notifications works!</p>
+<div class="notifications-page" role="main">
+  <header class="page-header">
+    <div class="header-banner">
+      <h1 class="page-title">{{ 'notifications.page.title' | translate }}</h1>
+    </div>
+  </header>
+
+  <app-notification-list
+    [notifications]="notifications"
+    [loading]="loading"
+    [error]="error">
+  </app-notification-list>
+</div>

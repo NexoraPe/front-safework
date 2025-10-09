@@ -25,5 +25,104 @@
     "assignments": "Assignments",
     "notifications": "Notifications",
     "analytics": "Analytics"
+  },
+  "profile": {
+    "welcome": "Welcome",
+    "personalInformation": "Personal Information",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "dni": "DNI",
+    "phoneNumber": "Phone Number",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "role": "Role",
+    "editInfo": "Edit Information",
+    "logout": "Log Out",
+    "deleteAccount": "Delete Account",
+    "loading": "Loading profile..."
+  },
+  "analytics": {
+    "title": "Analytics",
+    "open": "Open",
+    "openDescription": "Incidents newly reported, pending action.",
+    "inProgress": "In Progress",
+    "inProgressDescription": "Incidents actively being handled by teams.",
+    "closed": "Closed",
+    "closedDescription": "Resolved and finalized incidents."
+  },
+  "notifications": {
+    "page": {
+      "title": "Notifications",
+      "description": "Stay updated with the latest alerts and updates"
+    },
+    "list": {
+      "loading": "Loading notifications...",
+      "error": "Failed to load notifications. Please try again later.",
+      "ariaLabel": "Notifications list",
+      "empty": {
+        "title": "No notifications",
+        "message": "You're all caught up! Check back later for new updates."
+      }
+    },
+    "item": {
+      "ariaLabel": "Notification item",
+      "incidentId": "Incident ID"
+    },
+    "type": {
+      "EMAIL": "Email Notification",
+      "SMS": "SMS Notification",
+      "PUSH": "Push Notification"
+    },
+    "status": {
+      "PENDING": "Pending",
+      "SENT": "Sent",
+      "FAILED": "Failed"
+    }
+  },
+  "assignments": {
+    "board": {
+      "title": "Assignments board",
+      "ariaLabel": "Assignments Board",
+      "legendAriaLabel": "Status legend",
+      "loadingAriaLabel": "Loading assignments",
+      "loadingText": "Loading assignments...",
+      "openTitle": "Open",
+      "openSectionAriaLabel": "Open assignments section",
+      "noOpenAssignments": "No open assignments",
+      "inProgressTitle": "In Progress",
+      "inProgressSectionAriaLabel": "In progress assignments section",
+      "noInProgressAssignments": "No in-progress assignments",
+      "closedTitle": "Closed",
+      "closedSectionAriaLabel": "Closed assignments section",
+      "noClosedAssignments": "No closed assignments",
+      "emptyTitle": "No assignments found",
+      "emptyDescription": "There are currently no assignments to display.",
+      "footer": "© 2025 SafeWork. All rights reserved."
+    },
+    "card": {
+      "ariaLabel": "Assignment card",
+      "assigneeAriaLabel": "Assignee information",
+      "timelineAriaLabel": "Timeline information",
+      "assignedTo": "Assigned to:",
+      "assignedAt": "Assigned:",
+      "completedAt": "Completed:"
+    },
+    "sla": {
+      "ariaLabel": "SLA information",
+      "priorityAriaLabel": "Priority indicator",
+      "priority": "Priority:",
+      "dueDate": "Due Date:"
+    },
+    "status": {
+      "OPEN": "Open",
+      "IN_PROGRESS": "In Progress",
+      "CLOSED": "Closed"
+    },
+    "priority": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High",
+      "CRITICAL": "Critical"
+    }
   }
 }

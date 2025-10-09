@@ -1,1 +1,18 @@
-<p>analytics works!</p>
+<main class="container">
+  <div class="title">{{ 'analytics.title' | translate }}</div>
+
+  <div *ngIf="loading" class="loading-container">
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="!loading" class="chart-container">
+    <canvas baseChart
+            [data]="pieChartData"
+            [options]="pieChartOptions"
+            [type]="'pie'">
+    </canvas>
+  </div>
+
+  <app-analytic-card [analytics]="analyticsOptions"/>
+
+</main>
