@@ -49,5 +49,34 @@
     "inProgressDescription": "Incidents actively being handled by teams.",
     "closed": "Closed",
     "closedDescription": "Resolved and finalized incidents."
+  },
+  "notifications": {
+    "page": {
+      "title": "Notifications",
+      "description": "Stay updated with the latest alerts and updates"
+    },
+    "list": {
+      "loading": "Loading notifications...",
+      "error": "Failed to load notifications. Please try again later.",
+      "ariaLabel": "Notifications list",
+      "empty": {
+        "title": "No notifications",
+        "message": "You're all caught up! Check back later for new updates."
+      }
+    },
+    "item": {
+      "ariaLabel": "Notification item",
+      "incidentId": "Incident ID"
+    },
+    "type": {
+      "EMAIL": "Email Notification",
+      "SMS": "SMS Notification",
+      "PUSH": "Push Notification"
+    },
+    "status": {
+      "PENDING": "Pending",
+      "SENT": "Sent",
+      "FAILED": "Failed"
+    }
   }
 }
