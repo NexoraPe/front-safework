@@ -1,0 +1,72 @@
+<mat-card 
+  class="assignment-card"
+  [ngClass]="getStatusClass()"
+  role="article"
+  [attr.aria-label]="assignment.incidentTitle + ' - ' + getStatusText()"
+  i18n-aria-label="@@assignment.card.ariaLabel">
+
+  <mat-card-header>
+    <!-- Status Badge -->
+    <div class="status-badge" [ngClass]="getStatusClass()">
+      <mat-icon class="status-icon">{{ getStatusIcon() }}</mat-icon>
+      <span class="status-text">{{ getStatusText() }}</span>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Incident Title -->
+    <h3 class="incident-title" [ngClass]="getStatusClass()">
+      {{ assignment.incidentTitle }}
+    </h3>
+
+    <!-- Incident Description -->
+    <p class="incident-description">
+      {{ assignment.incidentDescription }}
+    </p>
+
+    <mat-divider></mat-divider>
+
+    <!-- Assignee Information -->
+    <div class="assignee-section" role="group" aria-label="Assignee information" i18n-aria-label="@@assignment.card.assigneeAriaLabel">
+      <div class="assignee-header">
+        <mat-icon class="assignee-icon">person</mat-icon>
+        <span class="assignee-label" i18n="@@assignment.card.assignedTo">Assigned to:</span>
+      </div>
+      <div class="assignee-details">
+        <strong class="assignee-name">{{ assignment.assignee.name }}</strong>
+        <span class="assignee-role">{{ assignment.assignee.role }}</span>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- SLA Information -->
+    <app-sla-view [sla]="assignment.sla"></app-sla-view>
+
+    <mat-divider></mat-divider>
+
+    <!-- Timeline Information -->
+    <div class="timeline-section" role="group" aria-label="Timeline information" i18n-aria-label="@@assignment.card.timelineAriaLabel">
+      <div class="timeline-item">
+        <mat-icon class="timeline-icon">event</mat-icon>
+        <div class="timeline-details">
+          <span class="timeline-label" i18n="@@assignment.card.assignedAt">Assigned:</span>
+          <time [attr.datetime]="assignment.assignedAt.toISOString()" class="timeline-value">
+            {{ formatDate(assignment.assignedAt) }}
+          </time>
+        </div>
+      </div>
+
+      <div class="timeline-item" *ngIf="assignment.completedAt">
+        <mat-icon class="timeline-icon">check_circle</mat-icon>
+        <div class="timeline-details">
+          <span class="timeline-label" i18n="@@assignment.card.completedAt">Completed:</span>
+          <time [attr.datetime]="assignment.completedAt.toISOString()" class="timeline-value">
+            {{ formatDate(assignment.completedAt) }}
+          </time>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
