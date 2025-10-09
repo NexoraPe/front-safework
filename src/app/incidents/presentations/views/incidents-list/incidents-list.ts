@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
 
 type IncidentStatus = 'open' | 'in_progress' | 'closed';
 
@@ -53,7 +54,7 @@ export class IncidentsList implements OnInit {
     this.isLoading = true;
     this.error = '';
 
-    this.http.get<Incident[]>('http://localhost:3000/incidents')
+    this.http.get<Incident[]>(environment.incidentsEndpoint)
       .subscribe({
         next: (data) => {
           console.log('Data received correctly:', data);
