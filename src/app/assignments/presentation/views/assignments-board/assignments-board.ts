@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Assignment, AssignmentStatus } from '../../../domain/model/assignment.model';
 import { AssignmentService } from '../../../application/services/assignment.service';
@@ -18,6 +19,7 @@ import { AssignmentCardComponent } from '../../components/assignment-card/assign
     CommonModule,
     MatProgressSpinnerModule,
     MatIconModule,
+    TranslateModule,
     AssignmentCardComponent
   ],
   templateUrl: './assignments-board.html',

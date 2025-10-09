@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import { Assignment, AssignmentStatus } from '../../../domain/model/assignment.model';
 import { SlaViewComponent } from '../sla-view/sla-view.component';
 
@@ -20,6 +21,7 @@ import { SlaViewComponent } from '../sla-view/sla-view.component';
     MatIconModule,
     MatDividerModule,
     MatTooltipModule,
+    TranslateModule,
     SlaViewComponent
   ],
   templateUrl: './assignment-card.component.html',

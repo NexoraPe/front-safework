@@ -2,8 +2,7 @@
   class="assignment-card"
   [ngClass]="getStatusClass()"
   role="article"
-  [attr.aria-label]="assignment.incidentTitle + ' - ' + getStatusText()"
-  i18n-aria-label="@@assignment.card.ariaLabel">
+  [attr.aria-label]="assignment.incidentTitle + ' - ' + getStatusText()">
 
   <mat-card-header>
     <!-- Status Badge -->
@@ -27,10 +26,10 @@
     <mat-divider></mat-divider>
 
     <!-- Assignee Information -->
-    <div class="assignee-section" role="group" aria-label="Assignee information" i18n-aria-label="@@assignment.card.assigneeAriaLabel">
+    <div class="assignee-section" role="group" [attr.aria-label]="'assignments.card.assigneeAriaLabel' | translate">
       <div class="assignee-header">
         <mat-icon class="assignee-icon">person</mat-icon>
-        <span class="assignee-label" i18n="@@assignment.card.assignedTo">Assigned to:</span>
+        <span class="assignee-label">{{ 'assignments.card.assignedTo' | translate }}</span>
       </div>
       <div class="assignee-details">
         <strong class="assignee-name">{{ assignment.assignee.name }}</strong>
@@ -46,11 +45,11 @@
     <mat-divider></mat-divider>
 
     <!-- Timeline Information -->
-    <div class="timeline-section" role="group" aria-label="Timeline information" i18n-aria-label="@@assignment.card.timelineAriaLabel">
+    <div class="timeline-section" role="group" [attr.aria-label]="'assignments.card.timelineAriaLabel' | translate">
       <div class="timeline-item">
         <mat-icon class="timeline-icon">event</mat-icon>
         <div class="timeline-details">
-          <span class="timeline-label" i18n="@@assignment.card.assignedAt">Assigned:</span>
+          <span class="timeline-label">{{ 'assignments.card.assignedAt' | translate }}</span>
           <time [attr.datetime]="assignment.assignedAt.toISOString()" class="timeline-value">
             {{ formatDate(assignment.assignedAt) }}
           </time>
@@ -60,7 +59,7 @@
       <div class="timeline-item" *ngIf="assignment.completedAt">
         <mat-icon class="timeline-icon">check_circle</mat-icon>
         <div class="timeline-details">
-          <span class="timeline-label" i18n="@@assignment.card.completedAt">Completed:</span>
+          <span class="timeline-label">{{ 'assignments.card.completedAt' | translate }}</span>
           <time [attr.datetime]="assignment.completedAt.toISOString()" class="timeline-value">
             {{ formatDate(assignment.completedAt) }}
           </time>
@@ -69,4 +68,3 @@
     </div>
   </mat-card-content>
 </mat-card>
-

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 import { SLA, SLAPriority } from '../../../domain/model/assignment.model';
 
 /**
@@ -11,7 +12,7 @@ import { SLA, SLAPriority } from '../../../domain/model/assignment.model';
 @Component({
   selector: 'app-sla-view',
   standalone: true,
-  imports: [CommonModule, MatChipsModule, MatIconModule],
+  imports: [CommonModule, MatChipsModule, MatIconModule, TranslateModule],
   templateUrl: './sla-view.component.html',
   styleUrls: ['./sla-view.component.scss']
 })

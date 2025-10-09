@@ -1,17 +1,16 @@
 <div 
   class="sla-container" 
   role="region"
-  [attr.aria-label]="'SLA information with ' + sla.priority + ' priority'"
-  i18n-aria-label="@@assignment.sla.ariaLabel">
+  [attr.aria-label]="'assignments.sla.ariaLabel' | translate">
   
   <!-- Priority Badge -->
-  <mat-chip-set aria-label="Priority indicator" i18n-aria-label="@@assignment.sla.priorityAriaLabel">
+  <mat-chip-set [attr.aria-label]="'assignments.sla.priorityAriaLabel' | translate">
     <mat-chip 
       [color]="getPriorityColor()"
       [class.overdue]="isOverdue()"
-      [attr.aria-label]="'Priority: ' + sla.priority">
+      [attr.aria-label]="('assignments.sla.priority' | translate) + ': ' + sla.priority">
       <mat-icon class="chip-icon">{{ getPriorityIcon() }}</mat-icon>
-      <span i18n="@@assignment.sla.priority">Priority:</span>
+      <span>{{ 'assignments.sla.priority' | translate }}</span>
       <strong>{{ sla.priority }}</strong>
     </mat-chip>
   </mat-chip-set>
@@ -20,7 +19,7 @@
   <div class="sla-due-date" [class.overdue]="isOverdue()">
     <mat-icon class="due-date-icon">schedule</mat-icon>
     <div class="due-date-info">
-      <span class="due-date-label" i18n="@@assignment.sla.dueDate">Due Date:</span>
+      <span class="due-date-label">{{ 'assignments.sla.dueDate' | translate }}</span>
       <time [attr.datetime]="sla.dueDate.toISOString()" class="due-date-value">
         {{ sla.dueDate | date:'short' }}
       </time>
@@ -30,4 +29,3 @@
     </div>
   </div>
 </div>
-
