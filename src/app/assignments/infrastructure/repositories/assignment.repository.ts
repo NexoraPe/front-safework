@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Assignment, AssignmentStatus, SLAPriority } from '../../domain/model/assignment.model';
-import assignmentsData from '../mock/assignments.json';
 
 /**
  * Assignment Repository
@@ -12,16 +12,21 @@ import assignmentsData from '../mock/assignments.json';
   providedIn: 'root'
 })
 export class AssignmentRepository {
-  private readonly MOCK_DELAY = 300; // Simulate network delay
+  private readonly MOCK_DATA_PATH = '/assignments/infrastructure/mock/assignments.json';
+  private cachedAssignments$?: Observable<Assignment[]>;
+
+  constructor(private http: HttpClient) {}
 
   /**
    * Get all assignments from the mock data
    */
   getAll(): Observable<Assignment[]> {
-    return of(assignmentsData).pipe(
-      delay(this.MOCK_DELAY),
-      map(data => this.mapToAssignments(data))
-    );
+    if (!this.cachedAssignments$) {
+      this.cachedAssignments$ = this.http.get<any[]>(this.MOCK_DATA_PATH).pipe(
+        map(data => this.mapToAssignments(data))
+      );
+    }
+    return this.cachedAssignments$;
   }
 
   /**
