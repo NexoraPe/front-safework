@@ -78,5 +78,51 @@
       "SENT": "Sent",
       "FAILED": "Failed"
     }
+  },
+  "assignments": {
+    "board": {
+      "title": "Assignments board",
+      "ariaLabel": "Assignments Board",
+      "legendAriaLabel": "Status legend",
+      "loadingAriaLabel": "Loading assignments",
+      "loadingText": "Loading assignments...",
+      "openTitle": "Open",
+      "openSectionAriaLabel": "Open assignments section",
+      "noOpenAssignments": "No open assignments",
+      "inProgressTitle": "In Progress",
+      "inProgressSectionAriaLabel": "In progress assignments section",
+      "noInProgressAssignments": "No in-progress assignments",
+      "closedTitle": "Closed",
+      "closedSectionAriaLabel": "Closed assignments section",
+      "noClosedAssignments": "No closed assignments",
+      "emptyTitle": "No assignments found",
+      "emptyDescription": "There are currently no assignments to display.",
+      "footer": "© 2025 SafeWork. All rights reserved."
+    },
+    "card": {
+      "ariaLabel": "Assignment card",
+      "assigneeAriaLabel": "Assignee information",
+      "timelineAriaLabel": "Timeline information",
+      "assignedTo": "Assigned to:",
+      "assignedAt": "Assigned:",
+      "completedAt": "Completed:"
+    },
+    "sla": {
+      "ariaLabel": "SLA information",
+      "priorityAriaLabel": "Priority indicator",
+      "priority": "Priority:",
+      "dueDate": "Due Date:"
+    },
+    "status": {
+      "OPEN": "Open",
+      "IN_PROGRESS": "In Progress",
+      "CLOSED": "Closed"
+    },
+    "priority": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High",
+      "CRITICAL": "Critical"
+    }
   }
 }
