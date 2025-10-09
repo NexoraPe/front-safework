@@ -7,4 +7,10 @@ export const environment = {
   assignmentsEndpoint: 'http://localhost:3000/assignments',
   notificationsEndpoint: 'http://localhost:3000/notifications',
   analyticsEndpoint: 'http://localhost:3000/analytics',
+
+  userEndpointPath: '/users',
+  incidentEndpointPath: '/incidents',
+  assignmentEndpointPath: '/assignments',
+  notificationEndpointPath: '/notifications',
+  analyticsEndpointPath: '/analytics'
 };
