@@ -49,5 +49,34 @@
     "inProgressDescription": "Incidentes que están siendo manejados activamente por los equipos.",
     "closed": "Cerrado",
     "closedDescription": "Incidentes resueltos y finalizados."
+  },
+  "notifications": {
+    "page": {
+      "title": "Notificaciones",
+      "description": "Mantente actualizado con las últimas alertas y actualizaciones"
+    },
+    "list": {
+      "loading": "Cargando notificaciones...",
+      "error": "Error al cargar las notificaciones. Por favor, inténtalo de nuevo más tarde.",
+      "ariaLabel": "Lista de notificaciones",
+      "empty": {
+        "title": "Sin notificaciones",
+        "message": "¡Estás al día! Vuelve más tarde para nuevas actualizaciones."
+      }
+    },
+    "item": {
+      "ariaLabel": "Elemento de notificación",
+      "incidentId": "ID del incidente"
+    },
+    "type": {
+      "EMAIL": "Notificación por correo",
+      "SMS": "Notificación por SMS",
+      "PUSH": "Notificación push"
+    },
+    "status": {
+      "PENDING": "Pendiente",
+      "SENT": "Enviado",
+      "FAILED": "Fallido"
+    }
   }
 }
