@@ -4,6 +4,10 @@
   "description": "Work Safety Application",
   "author": "NexoraPe",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.19 <23",
+    "npm": ">=10"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
