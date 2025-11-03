@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NewIncident } from '../new-incident/new-incident';
+import { ViewDetails } from '../view-details/view-details';
 
-type IncidentStatus = 'open' | 'in_progress' | 'closed';
+type IncidentStatus = 'open' | 'assigned' | 'in_progress' | 'closed';
 
 interface Incident {
-  id: string;
+  id: number;
   title: string;
   description: string;
   status: IncidentStatus;
@@ -24,23 +26,30 @@ interface StatusOption {
 @Component({
   selector: 'app-incidents-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, NewIncident, ViewDetails],
   templateUrl: './incidents-list.html',
   styleUrls: ['./incidents-list.css']
 })
 export class IncidentsList implements OnInit {
   incidents: Incident[] = [];
   filteredIncidents: Incident[] = [];
-  isLoading: boolean = true;
-  error: string = '';
+  isLoading = true;
+  error = '';
 
-  // Status filters
-  selectedStatuses: IncidentStatus[] = ['open', 'in_progress', 'closed'];
+  selectedStatuses: IncidentStatus[] = ['open', 'assigned', 'in_progress', 'closed'];
+  selectedTab: 'all' | 'mine' = 'all';
+
+  currentUserId = 1;
+
+  showNewIncident = false;
+  showViewDetails = false;
+  selectedIncident: Incident | null = null;
 
   statusOptions: StatusOption[] = [
-    { value: 'open', label: 'OPEN', color: '#ff4444' },
-    { value: 'in_progress', label: 'IN PROGRESS', color: '#ffbb33' },
-    { value: 'closed', label: 'CLOSED', color: '#00C851' }
+    { value: 'open', label: 'OPEN', color: '#28a745' },
+    { value: 'assigned', label: 'ASSIGNED', color: '#007bff' },
+    { value: 'in_progress', label: 'IN PROGRESS', color: '#ffc107' },
+    { value: 'closed', label: 'CLOSED', color: '#dc3545' }
   ];
 
   constructor(private http: HttpClient) {}
@@ -51,64 +60,47 @@ export class IncidentsList implements OnInit {
 
   loadIncidents(): void {
     this.isLoading = true;
-    this.error = '';
-
-    this.http.get<Incident[]>('http://localhost:3000/incidents')
-      .subscribe({
-        next: (data) => {
-          console.log('Data received correctly:', data);
-          this.incidents = data;
-          this.applyFilters();
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error loading incidents:', error);
-          this.error = `Error loading incidents: ${error.message}`;
-          this.isLoading = false;
-        }
-      });
+    this.http.get<Incident[]>('http://localhost:3000/incidents').subscribe({
+      next: (data) => {
+        this.incidents = data;
+        this.applyFilters();
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.error = `Error loading incidents: ${error.message}`;
+        this.isLoading = false;
+      }
+    });
   }
 
-  onFilterChange(status: IncidentStatus, isChecked: boolean): void {
-    if (isChecked) {
-      if (!this.selectedStatuses.includes(status)) {
-        this.selectedStatuses.push(status);
-      }
+  applyFilters(): void {
+    let filtered = this.incidents.filter(i => this.selectedStatuses.includes(i.status));
+    if (this.selectedTab === 'mine') {
+      filtered = filtered.filter(i => i.createdBy === this.currentUserId);
+    }
+    this.filteredIncidents = filtered;
+  }
+
+  onFilterChange(status: IncidentStatus, checked: boolean): void {
+    if (checked) {
+      this.selectedStatuses.push(status);
     } else {
       this.selectedStatuses = this.selectedStatuses.filter(s => s !== status);
     }
     this.applyFilters();
   }
 
-  applyFilters(): void {
-    this.filteredIncidents = this.incidents.filter(incident =>
-      this.selectedStatuses.includes(incident.status)
-    );
-
-    this.filteredIncidents.sort((a, b) => {
-      const statusOrder: Record<IncidentStatus, number> = {
-        'open': 0,
-        'in_progress': 1,
-        'closed': 2
-      };
-      return statusOrder[a.status] - statusOrder[b.status];
-    });
-
-    console.log('Incidents filters:', this.filteredIncidents);
+  selectTab(tab: 'all' | 'mine'): void {
+    this.selectedTab = tab;
+    this.applyFilters();
   }
 
   getStatusColor(status: IncidentStatus): string {
-    const statusOption = this.statusOptions.find(opt => opt.value === status);
-    return statusOption ? statusOption.color : '#666666';
-  }
-
-  getStatusLabel(status: IncidentStatus): string {
-    const statusOption = this.statusOptions.find(opt => opt.value === status);
-    return statusOption ? statusOption.label : status.toUpperCase();
+    return this.statusOptions.find(s => s.value === status)?.color || '#6c757d';
   }
 
   formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -117,36 +109,34 @@ export class IncidentsList implements OnInit {
     });
   }
 
-  isAllSelected(): boolean {
-    return this.selectedStatuses.length === this.statusOptions.length;
+  openNewIncident(): void {
+    this.showNewIncident = true;
   }
 
-  toggleAllFilters(isChecked: boolean): void {
-    if (isChecked) {
-      // Mapping values
-      this.selectedStatuses = this.statusOptions.map(opt => opt.value);
-    } else {
-      this.selectedStatuses = [];
+  closeNewIncident(refresh?: boolean): void {
+    this.showNewIncident = false;
+    if (refresh) {
+      const newIncident: Incident = {
+        id: this.incidents.length + 1,
+        title: 'New Incident Example',
+        description: 'This incident was just added.',
+        status: 'open',
+        createdBy: this.currentUserId,
+        createdAt: new Date().toISOString(),
+      };
+      this.loadIncidents();
+      this.incidents.unshift(newIncident);
+      this.applyFilters();
     }
-    this.applyFilters();
   }
 
-  onCreateReport(): void {
-    console.log('Create Report clicked');
-    // Create Report function
+  openViewDetails(incident: Incident): void {
+    this.selectedIncident = incident;
+    this.showViewDetails = true;
   }
 
-  onUploadReport(): void {
-    console.log('Upload Report clicked');
-    // Upload Report function
-  }
-
-  // Test
-  testConnection(): void {
-    console.log('Testing connection to JSON Server...');
-    this.http.get('http://localhost:3000/incidents').subscribe({
-      next: (data) => console.log('Connection successful:', data),
-      error: (error) => console.error('Error 404:', error)
-    });
+  closeViewDetails(): void {
+    this.showViewDetails = false;
+    this.selectedIncident = null;
   }
 }
