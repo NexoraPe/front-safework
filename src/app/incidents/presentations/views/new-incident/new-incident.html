@@ -1,0 +1,48 @@
+<div class="modal-overlay">
+  <div class="modal">
+    <h2>Create New Incident</h2>
+
+    <form (ngSubmit)="submitIncident()">
+      <label>
+        Title
+        <input
+          type="text"
+          [(ngModel)]="title"
+          name="title"
+          required
+          placeholder="Enter incident title"
+        />
+      </label>
+
+      <label>
+        Description
+        <textarea
+          [(ngModel)]="description"
+          name="description"
+          required
+          placeholder="Describe the incident"
+        ></textarea>
+      </label>
+
+      <label>
+        Location
+        <input
+          type="text"
+          [(ngModel)]="location"
+          name="location"
+          required
+          placeholder="Enter the location"
+        />
+      </label>
+
+      <div *ngIf="error" class="error">{{ error }}</div>
+
+      <div class="buttons">
+        <button type="submit" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Submitting...' : 'Add New Incident' }}
+        </button>
+        <button type="button" class="cancel" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
