@@ -1,0 +1,33 @@
+<div class="popup-backdrop">
+  <div class="popup">
+    <h2>📋 Incident Details</h2>
+
+    <div *ngIf="incident">
+
+      <!-- Card 1: Creator Info -->
+      <div class="detail-card">
+        <p><strong>Created By:</strong> {{ incident.createdBy }}</p>
+        <p><strong>Created At:</strong> {{ incident.createdAt | date:'medium' }}</p>
+      </div>
+
+      <!-- Card 2: Main Info -->
+      <div class="detail-card">
+        <p><strong>Title:</strong> {{ incident.title }}</p>
+        <p><strong>Description:</strong> {{ incident.description }}</p>
+        <p><strong>Location:</strong> {{ incident.location }}</p>
+        <p><strong>Status:</strong> {{ incident.status }}</p>
+      </div>
+
+      <!-- Card 3: Assignment Info -->
+      <div class="detail-card" *ngIf="incident.assignedTo">
+        <p><strong>Assigned To:</strong> {{ incident.assignedTo }}</p>
+        <p><strong>Assigned At:</strong> {{ incident.assignedAt | date:'medium' }}</p>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <button (click)="onClose()" class="btn-secondary">Close Details</button>
+    </div>
+  </div>
+</div>
