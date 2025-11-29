@@ -1,11 +1,23 @@
 export const environment = {
   production: false,
-  baseApiBaseUrl: 'http://localhost:3000',
-  usersEndpoint: 'http://localhost:3000/users',
-  incidentsEndpoint: 'http://localhost:3000/incidents',
-  assignmentsEndpoint: 'http://localhost:3000/assignments',
-  notificationsEndpoint: 'http://localhost:3000/notifications',
-  analyticsEndpoint: 'http://localhost:3000/analytics',
+
+  // LOCAL-HOST BACKEND API, MUST HAVE THE OTHER BACKEND API RUNNING
+  baseApiBaseUrl: 'http://localhost:8080/api/v1',
+
+  // ENDPOINTS
+  authenticationEndpoint: 'http://localhost:8080/api/v1/authentication',
+
+
+
+
+  usersEndpoint: 'http://localhost:8080/api/v1/users',
+
+
+
+  incidentsEndpoint: 'http://localhost:8080/api/v1/incidents',
+  assignmentsEndpoint: 'http://localhost:8080/api/v1/assignments',
+  notificationsEndpoint: 'http://localhost:8080/api/v1/notifications',
+  analyticsEndpoint: 'http://localhost:8080/api/v1/analytics',
 
   userEndpointPath: '/users',
   incidentEndpointPath: '/incidents',

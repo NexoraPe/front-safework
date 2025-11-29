@@ -1,45 +1,52 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
-import {
-  MatCard,
-  MatCardContent,
-  MatCardFooter,
-  MatCardHeader,
-  MatCardTitle
-} from '@angular/material/card';
+import { IamStore } from '../../../application/iam.store';
+import { SignInCommand } from '../../../domain/model/sign-in.command';
+
+
 import { TranslatePipe } from '@ngx-translate/core';
-import {MatFormField, MatLabel} from '@angular/material/form-field';
-import { MatButton } from '@angular/material/button';
-import {RouterLink} from '@angular/router';
-import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-login-form',
   imports: [
-    MatCard,
+    ReactiveFormsModule,
+    MatCardModule,
     TranslatePipe,
-    MatCardHeader,
-    MatCardTitle,
-    MatCardContent,
-    MatFormField,
-    MatCardFooter,
-    MatButton,
+    MatButtonModule,
     RouterLink,
-    MatLabel,
-    MatInput,
+    MatInputModule,
   ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css'
 })
 export class LoginForm {
-  constructor(private router: Router) {}
+  private fb = inject(FormBuilder);
+  private iamStore = inject(IamStore);
+
+  // Formulario simple: Email y Password
+  loginForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
+  });
+
+  hidePassword = true; // Para el ojito (opcional)
 
   onLogin(): void {
-    // Aquí iría la lógica de autenticación
-    // Por ejemplo: this.authService.login(...)
+    if (this.loginForm.invalid) return;
 
-    // Una vez autenticado, navegar a /app
-    this.router.navigate(['/app']);
+    const formValue = this.loginForm.value;
+
+    const command: SignInCommand = {
+      email: formValue.email,
+      password: formValue.password
+    };
+
+    // Llamamos al Store. El Store se encargará de redirigir si es exitoso.
+    this.iamStore.signIn(command);
   }
 }
