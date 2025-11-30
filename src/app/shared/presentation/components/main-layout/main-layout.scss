@@ -43,6 +43,7 @@ mat-sidenav {
   width: var(--sidebar-width);
   /* Ocupa el 100% del contenedor padre */
   border: none;
+  border-radius: 0;
 }
 
 mat-sidenav-container {
@@ -72,7 +73,6 @@ mat-sidenav-container {
 
 /* Área de contenido principal (Router Outlet) */
 .main-content {
-  padding: 30px;
   height: 100%;
   box-sizing: border-box;
   overflow-y: auto;

@@ -1,16 +1,33 @@
-<div class="container" style="padding: 20px;">
-  <h1>My Assignments Board</h1>
+<div class="dashboard-container">
 
-  <div class="grid">
-    @for (task of assignments; track task.id) { <app-assignment-card [assignment]="task" (start)="onStart($event)"
-      (requestClose)="onRequestClose($event)" (editDocument)="onEditDocument($event)"
-      (changePriority)="onChangePriority(task, $event)">
-    </app-assignment-card>
+  <header class="board-header">
+    <h1>My Assignments Board</h1>
 
-    } @empty {
-    <div class="empty-state">
-      <p>No tienes tareas asignadas. Ve al Dashboard para tomar una.</p>
+    <div class="legends-wrapper">
+      <div class="legend-item">
+        <span class="dot status-assigned"></span> Assigned
+      </div>
+      <div class="legend-item">
+        <span class="dot status-inprogress"></span> In Progress
+      </div>
+      <div class="legend-item">
+        <span class="dot status-closed"></span> Closed
+      </div>
     </div>
-    }
-  </div>
+  </header>
+
+  <main class="board-content">
+    <div class="grid">
+      @for (task of assignments; track task.id) {
+      <app-assignment-card [assignment]="task" (start)="onStart($event)" (requestClose)="onRequestClose($event)"
+        (editDocument)="onEditDocument($event)" (changePriority)="onChangePriority(task, $event)">
+      </app-assignment-card>
+      } @empty {
+      <div class="empty-state">
+        <p>No tienes tareas asignadas. Ve al Dashboard para tomar una.</p>
+      </div>
+      }
+    </div>
+  </main>
+
 </div>

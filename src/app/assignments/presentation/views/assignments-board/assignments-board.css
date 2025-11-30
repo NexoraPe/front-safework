@@ -1,5 +1,112 @@
+/* Importamos la fuente si no es global, aunque debería serlo */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+/* Contenedor Principal: Ocupa toda la altura */
+.dashboard-container {
+  min-height: 100vh;
+  /* Asegura que el negro llegue hasta abajo */
+  background-color: #121212;
+  /* FONDO NEGRO PRINCIPAL */
+  display: flex;
+  flex-direction: column;
+
+  padding: 0;
+}
+
+/* --- HEADER (GRIS OSCURO) --- */
+.board-header {
+  background-color: #1E1E1E;
+  /* Gris oscuro para el encabezado */
+  padding: 30px 20px;
+  text-align: center;
+  /* Centramos título y leyendas */
+  border-bottom: 1px solid #333;
+  /* Una línea sutil para separar */
+}
+
+.board-header h1 {
+  font-family: 'Raleway', sans-serif;
+  color: #ffffff;
+  margin: 0 0 15px 0;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Leyendas */
+.legends-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  /* Espacio entre items */
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  color: #B0B0B0;
+  /* Texto gris claro */
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Los puntitos de colores */
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.dot.status-assigned {
+  background-color: #589BF9;
+}
+
+/* Azul */
+.dot.status-inprogress {
+  background-color: #FFC107;
+}
+
+/* Amarillo/Ambar */
+.dot.status-closed {
+  background-color: #FF5252;
+}
+
+/* Rojo */
+
+
+/* --- BODY CONTENT --- */
+.board-content {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  max-width: 1600px;
+  /* Para que no se estiren infinitamente en monitores anchos */
+  margin: 0 auto;
+  /* Centrado horizontal */
+  width: 95%;
+  box-sizing: border-box;
+}
+
 .grid {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+}
+
+/* Estado Vacío */
+.empty-state {
+  text-align: center;
+  padding: 50px;
+  color: #666;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px dashed #444;
 }
