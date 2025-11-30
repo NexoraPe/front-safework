@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslatePipe } from '@ngx-translate/core';
-import {DatePipe, NgIf} from '@angular/common';
-import {environment} from '../../../../../environments/environment';
+import { DatePipe, NgIf } from '@angular/common';
+import { environment } from '../../../../../environments/environment';
 
 interface User {
   id: number;
@@ -31,16 +31,9 @@ interface User {
 export class ProfileForm implements OnInit {
   user?: User;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    // ID = 1 (example)
-    this.http.get<User>(`${environment.usersEndpoint}/1`).subscribe({
-      next: (data) => {
-        console.log('Received user:', data);
-        this.user = data;
-      },
-      error: (err) => console.error('Error fetching user:', err),
-    });
+
   }
 }

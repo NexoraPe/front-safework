@@ -6,16 +6,6 @@ import { SignInCommand } from '../domain/model/sign-in.command';
 import { SignUpCommand } from '../domain/model/sign-up.command';
 import { User } from '../domain/model/user.model';
 
-// Definimos la respuesta "cruda" del backend aquí para no crear otro archivo
-interface AuthResponseDTO {
-    token: string;
-    id: number;
-    companyId: number;
-    fullName: string;
-    email: string;
-    roles: string[];
-}
-
 @Injectable({
     providedIn: 'root'
 })
@@ -28,17 +18,26 @@ export class AuthenticationService {
      * Maneja el Sign-In (Login)
      */
     signIn(command: SignInCommand): Observable<User> {
-        return this.http.post<AuthResponseDTO>(`${this.apiUrl}/sign-in`, command).pipe(
+        return this.http.post<any>(`${this.apiUrl}/sign-in`, command).pipe(
             tap(response => this.saveToken(response.token)),
-            // Aquí hacemos de "Assembler": Transformamos DTO -> User Model
-            map(dto => ({
-                id: dto.id,
-                fullName: dto.fullName,
-                companyId: dto.companyId,
-                email: dto.email,
-                roles: dto.roles,
-                token: dto.token
-            }))
+            map(response => {
+                // 1. Decodificamos el token AQUÍ MISMO
+                const payload = this.decodeToken(response.token);
+
+                // 2. Construimos el usuario usando los datos del TOKEN (la fuente de la verdad)
+                return {
+                    id: payload.userId,         // Viene del token ("userId": 4)
+                    companyId: payload.companyId, // Viene del token ("companyId": 1)
+                    email: payload.sub,         // "worker2@gmail.com"
+                    username: payload.sub,
+                    // Como el token no tiene fullName, usamos el email o lo que venga en response
+                    fullName: payload.sub,
+
+                    // IMPORTANTE: El token tiene "role" (string), tu modelo quiere "roles" (array)
+                    roles: [payload.role],
+                    token: response.token
+                } as User;
+            })
         );
     }
 
@@ -57,5 +56,22 @@ export class AuthenticationService {
 
     logout(): void {
         localStorage.removeItem('token');
+    }
+
+    // --- HELPER PARA DECODIFICAR JWT SIN LIBRERÍA ---
+    private decodeToken(token: string): any {
+        try {
+            // El JWT tiene 3 partes separadas por puntos. La segunda es el payload.
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload);
+        } catch (e) {
+            console.error('Error decoding token', e);
+            return {};
+        }
     }
 }
