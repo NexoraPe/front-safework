@@ -11,7 +11,6 @@ export interface CreateIncidentPayload {
     location: string;
 }
 
-
 @Injectable({
     providedIn: 'root'
 })
@@ -25,12 +24,17 @@ export class IncidentService {
 
     // 1. CREACIÓN SEGURA (Backend inyecta usuario y compañía)
     create(payload: CreateIncidentPayload): Observable<Incident> {
-        return this.http.post<Incident>(`${this.apiUrl}/incidents`, payload);
+        return this.http.post<Incident>(`${this.apiUrl}`, payload);
     }
 
     // 2. AUTO-ASIGNACIÓN (Backend sabe quién eres)
     assignToMe(incidentId: number): Observable<void> {
         // El body solo necesita el ID del incidente
-        return this.http.post<void>(`${environment.baseApiBaseUrl}/assignments`, { incidentId });
+        return this.http.post<void>(`${this.apiUrl}/${incidentId}/assignments`, { incidentId });
+    }
+
+    // PATCH /api/v1/incidents/{id}/document
+    updateDocumentUrl(incidentId: number, documentUrl: string): Observable<void> {
+        return this.http.patch<void>(`${this.apiUrl}/${incidentId}/document`, { documentUrl });
     }
 }

@@ -11,6 +11,9 @@ import { IncidentService } from '../../../infrastructure/incident.service';
 import { Incident } from '../../../domain/model/incident.model';
 import { IamStore } from '../../../../IAM/application/iam.store';
 
+import { MatDialog } from '@angular/material/dialog';
+import { CreateIncidentDialogComponent } from '../../components/create-incident-dialog/create-incident-dialog.component';
+
 import { User } from '../../../../IAM/domain/model/user.model'; // Importa tu modelo User
 
 @Component({
@@ -22,7 +25,7 @@ import { User } from '../../../../IAM/domain/model/user.model'; // Importa tu mo
     IncidentCardComponent,
     MatButtonModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   templateUrl: './incidents-list.html',
   styleUrls: ['./incidents-list.css']
@@ -32,6 +35,7 @@ export class IncidentsList implements OnInit {
   private incidentService = inject(IncidentService);
   private iamStore = inject(IamStore); // Necesario para saber mi ID
   private router = inject(Router);
+  private dialog = inject(MatDialog); // <--- Inyección del Dialog Service
 
   // Estado de datos
   incidents: Incident[] = [];
@@ -163,5 +167,22 @@ export class IncidentsList implements OnInit {
       }
     });
   }
+
+  // Función para el botón "NEW INCIDENT"
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(CreateIncidentDialogComponent, {
+      width: '500px',
+      disableClose: true // Obliga a usar botones Cancelar/Crear
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // Si devolvió true, significa que se creó uno nuevo.
+        // Recargamos la lista para verlo al instante.
+        this.loadIncidents();
+      }
+    });
+  }
+
 
 }

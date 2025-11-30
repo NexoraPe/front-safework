@@ -8,7 +8,7 @@ export interface Incident {
     description: string;
     location: string;
     status: IncidentStatus;
-    documentUrl: null;
+    documentUrl?: string;
     reporterName: string;
     assigneeName: string;
 }

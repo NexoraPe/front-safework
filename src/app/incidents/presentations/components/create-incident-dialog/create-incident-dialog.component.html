@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Report New Incident</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="form" class="create-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" placeholder="E.g., Water Leakage" />
+            @if(form.get('title')?.hasError('required')) {
+            <mat-error>Title is required</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="3" placeholder="Describe the issue..."></textarea>
+            @if(form.get('description')?.hasError('minlength')) {
+            <mat-error>Description must be detailed</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Location</mat-label>
+            <input matInput formControlName="location" placeholder="E.g., Building A, Floor 2" />
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" [disabled]="isLoading">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid || isLoading">
+        {{ isLoading ? 'Creating...' : 'Create' }}
+    </button>
+</mat-dialog-actions>
