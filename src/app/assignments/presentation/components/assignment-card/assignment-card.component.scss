@@ -1,0 +1,197 @@
+/* Variables de colores basadas en tu imagen */
+$bg-card: #F8F9FB;
+/* Fondo gris muy claro */
+$border-color: #E0E0E0;
+$status-blue: #589BF9;
+/* El azul del badge "ASSIGNED" */
+$btn-dark: #5A5CA0;
+/* El botón oscuro de la derecha */
+$btn-yellow: #FFC107;
+/* El botón amarillo */
+$priority-red: #FF5252;
+/* El rojo de la prioridad */
+$text-dark: #333333;
+$text-light: #666666;
+
+:host {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.custom-card {
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  /* Bordes redondeados modernos */
+  padding: 20px 24px;
+  position: relative;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-color: #d1d1d1;
+  }
+}
+
+/* --- 1. HEADER --- */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Status Badge (La píldora azul) */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: white;
+
+  /* Por defecto azul (Assigned) */
+  background-color: $status-blue;
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid white;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  /* Variantes de color según estado */
+  &.status-in_progress {
+    background-color: #7B7DC1;
+  }
+
+  &.status-closed {
+    background-color: #9E9E9E;
+  }
+}
+
+/* Botones Superiores */
+.header-actions {
+  display: flex;
+  gap: 10px;
+
+  .btn-primary-custom {
+    background-color: $btn-dark !important;
+    color: white !important;
+    border-radius: 6px;
+  }
+
+  .btn-warn-custom {
+    background-color: $btn-yellow !important;
+    color: #333 !important;
+    /* Texto oscuro para contraste con amarillo */
+    border-radius: 6px;
+  }
+}
+
+/* --- 2. BODY --- */
+.card-body {
+  margin-bottom: 20px;
+}
+
+.incident-title {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: $text-dark;
+}
+
+.incident-description {
+  margin: 0 0 16px 0;
+  font-size: 15px;
+  color: $text-light;
+  line-height: 1.5;
+}
+
+/* Priority Button (Estilo Alerta Roja) */
+.priority-btn {
+  background-color: #FFE5E5;
+  /* Fondo rojo muy suave */
+  color: #D32F2F;
+  /* Texto rojo oscuro */
+  border: 1px solid #FFCDD2;
+  border-radius: 6px;
+  padding: 0 12px;
+  height: 36px;
+  font-size: 13px;
+
+  display: inline-flex;
+  align-items: center;
+
+  .alert-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+  }
+
+  /* Variantes */
+  &.priority-high,
+  &.priority-critical {
+    background-color: #FF5252;
+    color: white;
+    border: none;
+
+    .alert-icon {
+      color: white;
+    }
+  }
+
+  &.priority-medium {
+    background-color: #FFF8E1;
+    /* Amarillito */
+    color: #F57C00;
+    border-color: #FFE0B2;
+  }
+}
+
+/* --- 3. FOOTER --- */
+.card-divider {
+  height: 1px;
+  background-color: #E0E0E0;
+  margin: 0 -24px 16px -24px;
+  /* Margen negativo para ir de borde a borde */
+}
+
+.card-footer {
+  .date-info {
+    display: flex;
+    align-items: center;
+    color: $text-dark;
+  }
+
+  .calendar-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    color: #757575;
+  }
+
+  .date-text {
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+
+    .label {
+      font-weight: 700;
+      color: #9E9E9E;
+      font-size: 10px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .value {
+      font-weight: 600;
+    }
+  }
+}

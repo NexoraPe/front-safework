@@ -1,10 +1,44 @@
-<mat-card class="assignment-card" [class]="'status-' + assignment.status.toLowerCase()">
-  <mat-card-content>
-    <div class="priority-container">
-      Priority:
-      <button mat-button [matMenuTriggerFor]="priorityMenu" [color]="getPriorityColor(assignment.priority)">
-        <strong>{{ assignment.priority }}</strong>
-        <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+<div class="custom-card">
+
+  <div class="card-header">
+    <div class="status-badge" [class]="getBadgeClass(assignment.status)">
+      <span class="status-dot"></span>
+      {{ assignment.status }}
+    </div>
+
+    <div class="header-actions">
+      @if (canStart()) {
+      <button mat-flat-button class="btn-primary-custom" (click)="start.emit(assignment.incidentId)">
+        Start Task
+      </button>
+      }
+
+      @if (canClose()) {
+      <button mat-flat-button class="btn-warn-custom" (click)="requestClose.emit(assignment)">
+        Mark as Done
+      </button>
+      }
+
+      @if (assignment.status === 'CLOSED') {
+      <button mat-stroked-button (click)="editDocument.emit(assignment)">
+        Edit Proof
+      </button>
+      }
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h3 class="incident-title">Incident #{{assignment.incidentId}}</h3>
+
+    <p class="incident-description">
+      {{ assignment.incidentTitle }}
+    </p>
+
+    <div class="priority-wrapper">
+      <button mat-button [matMenuTriggerFor]="priorityMenu" class="priority-btn"
+        [class]="'priority-' + assignment.priority.toLowerCase()">
+        <mat-icon class="alert-icon">warning</mat-icon>
+        Priority: <strong>{{ assignment.priority }}</strong>
       </button>
 
       <mat-menu #priorityMenu="matMenu">
@@ -13,26 +47,19 @@
         <button mat-menu-item (click)="changePriority.emit('LOW')">🟢 LOW</button>
       </mat-menu>
     </div>
-  </mat-card-content>
+  </div>
 
-  <mat-card-actions align="end">
-    @if (canStart()) {
-    <button mat-flat-button color="primary" (click)="start.emit(assignment.incidentId)">
-      <mat-icon>play_arrow</mat-icon> Start
-    </button>
-    }
+  <div class="card-divider"></div>
 
-    @if (canClose()) {
-    <button mat-flat-button color="warn" (click)="requestClose.emit(assignment)">
-      <mat-icon>check_circle</mat-icon> Done
-    </button>
-    }
+  <div class="card-footer">
+    <div class="date-info">
+      <mat-icon class="calendar-icon">calendar_today</mat-icon>
+      <div class="date-text">
+        <span class="label">ASSIGNED:</span>
+        <span class="value">{{ assignment.assignedAt | date:'mediumDate' }}, {{ assignment.assignedAt | date:'shortTime'
+          }}</span>
+      </div>
+    </div>
+  </div>
 
-    @if (assignment.status === 'CLOSED') {
-    <button mat-stroked-button color="accent" (click)="editDocument.emit(assignment)">
-      <mat-icon>edit</mat-icon> Edit Proof
-    </button>
-    <button mat-button disabled>Closed</button>
-    }
-  </mat-card-actions>
-</mat-card>
+</div>

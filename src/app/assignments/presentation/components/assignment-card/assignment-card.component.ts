@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,9 +10,9 @@ import { MatMenuModule } from '@angular/material/menu';
 @Component({
   selector: 'app-assignment-card',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatChipsModule, MatMenuModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatChipsModule, MatMenuModule, DatePipe],
   templateUrl: './assignment-card.component.html',
-  styleUrl: './assignment-card.component.css'
+  styleUrl: './assignment-card.component.scss'
 })
 export class AssignmentCardComponent {
   @Input({ required: true }) assignment!: Assignment;
@@ -45,5 +45,10 @@ export class AssignmentCardComponent {
   // Helper color prioridad
   getPriorityColor(priority: string): string {
     return priority === 'HIGH' ? 'warn' : priority === 'MEDIUM' ? 'accent' : 'primary';
+  }
+
+  // Helper para la clase CSS del badge
+  getBadgeClass(status: string): string {
+    return `status-${status.toLowerCase()}`;
   }
 }
