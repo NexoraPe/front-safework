@@ -1,0 +1,100 @@
+/* Reseteo y variables para consistencia */
+/* Actualizamos las variables y el estilo del sidenav */
+:host {
+  --sidebar-width: 350px;
+  /* Ajustamos ancho para que quepa el texto de 22px */
+}
+
+mat-sidenav {
+
+  /* --- CORRECCIÓN 1: LAYOUT --- */
+  ::ng-deep .mat-drawer-inner-container {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    /* Asegura distribución total */
+    height: 100% !important;
+    overflow: hidden !important;
+    /* O 'auto' si quieres scroll */
+  }
+
+  /* IMPORTANTE: Quitamos 'justify-content: space-between'. 
+     Dejaremos que el margin-top: auto del footer haga el trabajo de empujar. */
+
+  /* --- CORRECCIÓN 2: FONDO ESTILO FIGMA (CAPAS) --- */
+  /* Capa 1 (Fondo): El color sólido azul oscuro */
+  background-color: #1A1835;
+
+  /* Capa 2 (Frente): El gradiente con transparencia */
+  /* El truco es empezar TRANSPARENTE para que se vea el color de fondo */
+  background-image: linear-gradient(180deg,
+    rgba(26, 24, 53, 0) 0%,
+    /* Transparente arriba */
+    rgba(26, 24, 53, 0) 40%,
+    /* Se mantiene transparente hasta el 40% (aprox tu screenshot) */
+    rgba(162, 7, 7, 0.25) 100%
+    /* Termina en el rojo con 40% opacidad */
+  );
+
+  background-repeat: no-repeat;
+  /* Evita que se repita si hay scroll */
+
+  /* Dimensiones */
+  width: var(--sidebar-width);
+  /* Ocupa el 100% del contenedor padre */
+  border: none;
+}
+
+mat-sidenav-container {
+  height: 100vh;
+  background-color: #f5f6fa;
+  /* Fondo gris muy suave para el contenido principal */
+}
+
+/* Logo Area */
+.image-logo-container {
+  padding: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  /* Evita que el logo se aplaste */
+  img {
+    width: 50%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+/* Área de contenido principal (Router Outlet) */
+.main-content {
+  padding: 30px;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* Footer (Language Switcher) */
+.switcher-container {
+  /* --- MAGIA DEL ANCLAJE --- */
+  margin-top: auto;
+  /* Esto empuja el footer al fondo SOLO si quitamos space-between arriba */
+
+  padding-bottom: 80px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  /* Evita que el footer se aplaste */
+
+  /* Opcional: Un padding top para que no se pegue al menú si la pantalla es muy pequeña */
+  padding-top: 20px;
+}
+
+app-toolbar {
+  flex-grow: 1;
+  /* Ocupa todo el espacio disponible entre el logo y el footer */
+}

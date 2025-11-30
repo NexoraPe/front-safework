@@ -1,0 +1,120 @@
+/* app-toolbar.component.scss */
+$font-family: 'Raleway', sans-serif;
+
+/* 1. Contenedor de la lista: Limpiamos paddings extraños */
+.navigation-list {
+  padding-top: 20px;
+  padding: 0 !important;
+  width: 100%;
+}
+
+/* 2. EL ITEM (La clave de todo) */
+/* Usamos ::ng-deep para penetrar la encapsulación de estilos de Angular */
+::ng-deep .mat-mdc-nav-list .mat-mdc-list-item {
+  /* Forzamos que sea un bloque rectangular */
+  border-radius: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  min-height: 56px !important;
+  /* Altura estándar más elegante */
+
+  /* Esto quita el padding por defecto de Material para que nosotros controlemos la posición */
+  padding: 0px !important;
+  padding-top: 38px !important;
+  padding-bottom: 38px !important;
+}
+
+/* 3. EL CONTENIDO INTERNO (Donde vive el texto y el icono) */
+::ng-deep .mat-mdc-list-item-content,
+::ng-deep .mdc-list-item__content {
+  /* ALINEACIÓN: Esto fuerza todo a la izquierda */
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+
+  /* Padding manual: 24px es el estándar de Material para alinear a la izquierda */
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. TU CLASE PERSONALIZADA (Estilos visuales) */
+.nav-item {
+  /* Color base (inactivo) */
+  color: #A5A6B8 !important;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+
+  /* TIPOGRAFÍA: Aquí forzamos el tamaño real */
+  /* Nota: 22px es muy grande para una UI elegante. El diseño de Figma parece ser 16px o 18px. */
+  /* Lo he bajado a 18px para que se parezca a tu foto "Target" */
+  &,
+  ::ng-deep .mat-mdc-list-item-title {
+    font-family: $font-family !important;
+    font-size: 22px !important;
+    /* Ajustado para elegancia */
+    font-weight: 500 !important;
+    line-height: 24px !important;
+    letter-spacing: 0.5px !important;
+    color: #ffffff !important;
+  }
+
+  /* ICONO */
+  mat-icon {
+    margin-right: 16px !important;
+    /* Espacio exacto entre icono y texto */
+    font-size: 22px !important;
+    /* Tamaño de icono balanceado */
+    color: inherit;
+    /* Hereda el color del texto */
+    color: rgba(255, 255, 255, 0.7);
+    /* Por defecto un poco apagado */
+  }
+
+  /* Hover */
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+
+    mat-icon {
+      color: #ffffff !important;
+    }
+
+    /* Icono blanco en hover */
+  }
+}
+
+/* 5. ESTADO ACTIVO (Seleccionado) */
+.active-link {
+  /* Fondo rectangular completo */
+  background: linear-gradient(90deg, rgba(90, 92, 160, 0.4) 0%, rgba(90, 92, 160, 0.1) 100%) !important;
+  background-color: transparent !important;
+  /* Fallback */
+
+  /* Borde izquierdo (la línea blanca) */
+  border-left: 4px solid #ffffff !important;
+
+  /* Texto activo */
+  color: #ffffff !important;
+
+  /* Corrección de padding para compensar el borde izquierdo y que el texto no salte */
+  ::ng-deep .mdc-list-item__content {
+    padding-left: 20px !important;
+    /* 24px original - 4px borde = 20px */
+  }
+
+  mat-icon {
+    color: #ffffff !important;
+  }
+
+  ::ng-deep .mat-mdc-list-item-title {
+    color: #ffffff !important;
+  }
+}
+
+/* Forzar que el título ocupe su espacio y no se centre */
+::ng-deep .mat-mdc-list-item-title {
+  flex: 1;
+  text-align: left;
+}

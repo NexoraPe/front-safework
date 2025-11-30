@@ -1,7 +1,15 @@
-<mat-nav-list>
+<mat-nav-list class="navigation-list">
   @for(option of options; track option.label) {
-    <a mat-list-item [routerLink]="option.link" routerLinkActive="active-link">
-      {{ option.label | translate }}
-    </a>
+  <a mat-list-item [routerLink]="option.link" routerLinkActive="active-link" class="nav-item">
+
+    <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
+
+    <span matListItemTitle>{{ option.label | translate }}</span>
+  </a>
   }
+
+  <a mat-list-item class="nav-item logout-item">
+    <mat-icon matListItemIcon>exit_to_app</mat-icon>
+    <span matListItemTitle>Logout</span>
+  </a>
 </mat-nav-list>
