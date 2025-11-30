@@ -41,7 +41,6 @@ export class IncidentsList implements OnInit {
 
 
   // Estado de usuario
-  currentUserId: number | null = null;   // Decidi no borrar el currentUserId por si en el futuro se necesita
   currentUser: User | null = null;
 
   // Filtros
@@ -124,7 +123,7 @@ export class IncidentsList implements OnInit {
       // 2. Filtro de "Mis Incidentes"
       // Si el toggle está activo, solo mostramos si userId coincide con currentUserId
       const ownerMatch = this.showOnlyMine
-        ? (incident.userId === this.currentUserId)
+        ? (incident.userId === this.currentUser?.id)
         : true;
 
       return statusMatch && ownerMatch;
@@ -144,6 +143,9 @@ export class IncidentsList implements OnInit {
   }
 
   onAssignToMe(incidentId: number) {
+
+    console.log("Intentando asignar incidente:", incidentId);
+
     if (!confirm('¿Confirmas que quieres tomar este incidente?')) return;
 
     this.isLoading = true;

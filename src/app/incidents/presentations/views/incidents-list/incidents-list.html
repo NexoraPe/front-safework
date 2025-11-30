@@ -48,8 +48,7 @@
     <div class="incidents-grid">
       @for (incident of filteredIncidents; track incident.id) {
       <app-incident-card [incident]="incident" [currentUser]="currentUser" (viewDetails)="onViewDetails($event)"
-        (updateStatus)="onUpdateStatus($event)">
-      </app-incident-card>
+        (updateStatus)="onUpdateStatus($event)" (assignToMe)="onAssignToMe($event)"></app-incident-card>
       } @empty {
       <div class="empty-state">
         <p>No incidents found matching your filters.</p>

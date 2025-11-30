@@ -33,7 +33,7 @@
         }
 
         @if (canAssign()) {
-        <button mat-flat-button color="primary" (click)="updateStatus.emit(incident.id)">
+        <button mat-flat-button color="primary" (click)="assignToMe.emit(incident.id)">
             Assign to Me
         </button>
         }

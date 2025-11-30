@@ -25,6 +25,7 @@ export class IncidentCardComponent {
   // Outputs: Avisamos al padre cuando alguien toca un botón
   @Output() viewDetails = new EventEmitter<number>();
   @Output() updateStatus = new EventEmitter<number>();
+  @Output() assignToMe = new EventEmitter<number>();
 
   // Helper para abrir el archivo (esto sí lo puede hacer el hijo directo)
   openDocument(): void {
