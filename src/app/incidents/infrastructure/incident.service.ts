@@ -31,6 +31,6 @@ export class IncidentService {
     // 2. AUTO-ASIGNACIÓN (Backend sabe quién eres)
     assignToMe(incidentId: number): Observable<void> {
         // El body solo necesita el ID del incidente
-        return this.http.post<void>(`${this.apiUrl}/assignments`, { incidentId });
+        return this.http.post<void>(`${environment.baseApiBaseUrl}/assignments`, { incidentId });
     }
 }
