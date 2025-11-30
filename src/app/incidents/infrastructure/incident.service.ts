@@ -17,6 +17,7 @@ export interface CreateIncidentPayload {
 export class IncidentService {
     private http = inject(HttpClient);
     private apiUrl = `${environment.baseApiBaseUrl}/incidents`; // http://localhost:8080/api/v1/incidents
+    private assignmentsApiUrl = `${environment.baseApiBaseUrl}/assignments`;
 
     getAll(): Observable<Incident[]> {
         return this.http.get<Incident[]>(this.apiUrl);
@@ -30,7 +31,7 @@ export class IncidentService {
     // 2. AUTO-ASIGNACIÓN (Backend sabe quién eres)
     assignToMe(incidentId: number): Observable<void> {
         // El body solo necesita el ID del incidente
-        return this.http.post<void>(`${this.apiUrl}/${incidentId}/assignments`, { incidentId });
+        return this.http.post<void>(`${this.assignmentsApiUrl}`, { incidentId });
     }
 
     // PATCH /api/v1/incidents/{id}/document
