@@ -29,10 +29,17 @@ export class IamStore {
 
     // Verificar si ya hay token al recargar la página
     private checkInitialSession() {
-        // Aquí idealmente decodificarías el token o llamarías a un endpoint /me
-        // Por ahora, si hay token, asumimos logueado
-        if (localStorage.getItem('token')) {
-            this._isAuthenticated.next(true);
+        // INTENTO DE RECUPERACIÓN AUTOMÁTICA
+        const user = this.authService.getUserFromLocalStorage();
+
+        if (user) {
+            console.log('🔄 Sesión restaurada desde Token:', user);
+            this._user.next(user);            // ¡Restauramos los datos!
+            this._isAuthenticated.next(true); // ¡Restauramos el estado!
+        } else {
+            // Si el token expiró o no existe, aseguramos limpieza
+            this._user.next(null);
+            this._isAuthenticated.next(false);
         }
     }
 

@@ -74,4 +74,29 @@ export class AuthenticationService {
             return {};
         }
     }
+
+    getUserFromLocalStorage(): User | null {
+        const token = localStorage.getItem('token');
+        if (!token) return null;
+
+        const payload = this.decodeToken(token);
+
+        // Verificamos que el token no haya expirado (opcional pero recomendado)
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (payload.exp && payload.exp < currentTime) {
+            this.logout();
+            return null;
+        }
+
+        // Reconstruimos el usuario igual que en el login
+        return {
+            id: payload.userId,
+            companyId: payload.companyId,
+            email: payload.sub,
+            fullName: payload.sub, // O lo que tengas disponible
+            username: payload.sub,
+            roles: [payload.role],
+            token: token
+        } as User;
+    }
 }
