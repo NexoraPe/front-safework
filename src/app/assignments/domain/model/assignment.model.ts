@@ -1,55 +1,14 @@
-/**
- * Assignment domain model
- * Represents a task assignment linked to an incident
- */
+export type AssignmentStatus = 'OPEN' | 'ASSIGNED' | 'IN_PROGRESS' | 'CLOSED';
+export type Priority = 'HIGH' | 'MEDIUM' | 'LOW'; // Ajusta según tu backend
+
 export interface Assignment {
-  id: string;
-  incidentId: string;
+  id: number;
+  incidentId: number;
+  userId: number; // Redundante pero viene
   incidentTitle: string;
-  incidentDescription: string;
-  assignee: Assignee;
-  sla: SLA;
+  priority: Priority;
   status: AssignmentStatus;
-  assignedAt: Date;
-  completedAt?: Date;
+  assignedAt: string; // Fecha ISO
+  completionDate?: string; // Fecha ISO
+  documentUrl?: string;
 }
-
-/**
- * Assignee information
- * Represents the person responsible for the assignment
- */
-export interface Assignee {
-  id: string;
-  name: string;
-  role: string;
-}
-
-/**
- * Service Level Agreement
- * Represents the SLA associated with an assignment
- */
-export interface SLA {
-  id: string;
-  dueDate: Date;
-  priority: SLAPriority;
-}
-
-/**
- * SLA Priority levels
- */
-export enum SLAPriority {
-  LOW = 'LOW',
-  MEDIUM = 'MEDIUM',
-  HIGH = 'HIGH',
-  CRITICAL = 'CRITICAL',
-}
-
-/**
- * Assignment status lifecycle
- */
-export enum AssignmentStatus {
-  OPEN = 'OPEN',
-  IN_PROGRESS = 'IN_PROGRESS',
-  CLOSED = 'CLOSED',
-}
-
