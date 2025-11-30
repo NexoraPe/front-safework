@@ -1,55 +1,67 @@
-<mat-card>
+<mat-card class="register-card">
+
   <mat-card-header>
-    <mat-card-title>{{ 'signup.title' | translate }}</mat-card-title>
+    <mat-card-title>Create your account</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form-container">
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Full Name</mat-label>
-        <input matInput formControlName="fullName" required />
+        <input matInput formControlName="fullName" required placeholder="John Doe" />
         @if (registerForm.get('fullName')?.hasError('required')) {
         <mat-error>Name is required</mat-error>
         }
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'signup.email' | translate }}</mat-label>
-        <input matInput type="email" formControlName="email" required />
+        <input matInput type="email" formControlName="email" required placeholder="example@mail.com" />
         @if (registerForm.get('email')?.hasError('email')) {
         <mat-error>Invalid email</mat-error>
         }
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'signup.password' | translate }}</mat-label>
-        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required />
-        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-          type="button">
-          👁️
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required
+          placeholder="******" />
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'signup.confirmPassword' | translate }}</mat-label>
-        <input matInput type="password" formControlName="confirmPassword" required />
+        <input matInput type="password" formControlName="confirmPassword" required placeholder="******" />
       </mat-form-field>
 
-      <mat-button-toggle-group formControlName="role" aria-label="Roles" appearance="standard"
-        [hideSingleSelectionIndicator]="true">
-        <mat-button-toggle value="employer">Employer</mat-button-toggle>
-        <mat-button-toggle value="worker">Worker</mat-button-toggle>
-      </mat-button-toggle-group>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Company Registration Code</mat-label>
+        <input matInput formControlName="companyCode" required placeholder="Ex: CMP-2025-X" />
+      </mat-form-field>
+
+      <div class="toggle-container">
+        <mat-button-toggle-group formControlName="role" class="custom-toggle-group">
+          <mat-button-toggle value="employer" class="toggle-btn">Employer</mat-button-toggle>
+          <mat-button-toggle value="worker" class="toggle-btn">Worker</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <button mat-flat-button class="btn-register" type="submit" [disabled]="registerForm.invalid">
+        REGISTER
+      </button>
 
     </form>
+
+    <div class="card-footer-links">
+      <a routerLink="/authentication/sign-in" class="footer-link">Back to Login</a>
+    </div>
+
   </mat-card-content>
-
-  <mat-card-footer>
-    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="registerForm.invalid">
-      {{ 'signup.submit' | translate }}
-    </button>
-
-    <a mat-button routerLink="/authentication/sign-in">{{ 'signup.haveAccount' | translate }}</a>
-  </mat-card-footer>
 </mat-card>
+
+<footer class="page-footer">
+  <p>© 2025 SafeWork. Todos los derechos reservados.</p>
+</footer>

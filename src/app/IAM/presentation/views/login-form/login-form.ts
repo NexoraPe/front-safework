@@ -8,8 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { IamStore } from '../../../application/iam.store';
 import { SignInCommand } from '../../../domain/model/sign-in.command';
 
+import { MatIconModule } from '@angular/material/icon'; // <--- Agregado
+
 
 import { TranslatePipe } from '@ngx-translate/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-login-form',
@@ -20,9 +23,11 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatButtonModule,
     RouterLink,
     MatInputModule,
+    MatIconModule,
+    MatFormFieldModule
   ],
   templateUrl: './login-form.html',
-  styleUrl: './login-form.css'
+  styleUrl: './login-form.scss'
 })
 export class LoginForm {
   private fb = inject(FormBuilder);

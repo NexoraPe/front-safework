@@ -1,69 +1,168 @@
-mat-card {
-  width: 670px;
-  padding: 40px 80px;
+/* register-form.css */
 
-  gap: 40px;
-
-  border-radius: 30px;
+/* 1. ESTO ES LO QUE FALTABA */
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* Centramos la tarjeta dentro del componente */
 }
 
-mat-card mat-card-title{
-  color: black;
-  font-size: 40px;
-  font-weight: 500;
-}
-
-mat-card mat-card-content{
-  color: #49494C;
+/* --- TARJETA --- */
+/* --- 1. DARLE MÁS ANCHO A LA TARJETA --- */
+.register-card {
+  width: 100%;
+  /* Aumentamos de 550px a 650px para que se vea más apaisada y elegante */
+  max-width: 600px;
+  /* Reducimos el padding lateral de 50px a 40px para ganar espacio interno */
+  padding: 40px 60px !important;
+  /* Aumentamos un poco el padding lateral (60px) para equilibrar */
+  border-radius: 20px !important;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
 
-  padding: 0;
+  /* Animación */
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
 
+/* Header */
+mat-card-header {
+  margin-bottom: 25px;
+  justify-content: center;
+}
+
+mat-card-title {
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: #000000;
+  text-align: center;
+}
+
+mat-card-content {
+  width: 100%;
+  padding: 0 !important;
+}
+
+/* --- FORMULARIO --- */
+/* --- 2. SEPARAR MÁS LOS INPUTS --- */
+.register-form-container {
+  display: flex;
+  flex-direction: column;
+  /* Aumentamos el gap de 15px a 24px. El aire es lujo. */
+  gap: 5px;
+  width: 100%;
+  margin-top: 10px;
+  /* Un poco de separación extra con el título */
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* --- TOGGLE BUTTONS (La parte difícil) --- */
+.toggle-container {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* --- 3. AJUSTAR EL TOGGLE PARA QUE NO SE VEA PEQUEÑO --- */
+.custom-toggle-group {
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  overflow: hidden;
+  /* Aumentamos un poco la altura para igualar visualmente a los inputs */
+  height: 50px;
+  display: flex;
+}
+
+/* Estilo Base del Toggle (Inactivo) */
+.custom-toggle-group mat-button-toggle {
+  flex: 1;
+  /* 50% cada uno */
+  background-color: #B5B7E0;
+  /* Lila claro desactivado */
+  color: white;
+  font-weight: 500;
+  border: none;
+}
+
+/* Estilo del Toggle SELECCIONADO (Activo) */
+.custom-toggle-group .mat-button-toggle-checked {
+  background-color: #1A1835 !important;
+  /* Azul Oscuro SafeWork */
+  color: #ffffff !important;
+}
+
+/* --- BOTÓN REGISTER --- */
+.btn-register {
+  width: 100%;
+  height: 50px;
+  background-color: #555555 !important;
+  /* Gris Oscuro según foto */
+  color: white !important;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 6px !important;
   margin-top: 10px;
 }
 
-mat-card mat-card-footer{
+/* --- LINKS --- */
+.card-footer-links {
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: center;
 }
 
-mat-card mat-card-footer button{
-  width: 100%;
-
-  border-radius: 5px;
-
-  color: white;
-
-  background-color: rgba(123, 125, 193, 0.63);
+.footer-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: color 0.2s;
 }
 
-mat-card mat-card-footer a{
+.footer-link:hover {
   color: #7B7DC1;
-  font-weight: 500;
+  text-decoration: underline;
 }
 
-mat-card mat-card-content mat-button-toggle-group {
-  width: 100%;
+/* --- FOOTER COPYRIGHT --- */
+.page-footer {
+  margin-top: 40px;
+  color: #ffffff;
+  font-size: 14px;
+  opacity: 0.8;
+  text-align: center;
 
-  border-radius: 5px;
-
-  height: 3vw;
-
+  /* Animación con delay */
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 0.1s;
 }
 
-mat-button-toggle {
-  width: 100%;
-
-  height: 100%;
-
-  align-content: center;
+/* Overrides de Material */
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: white !important;
 }
 
-mat-button-toggle.mat-button-toggle-checked {
-  background-color: rgba(123, 125, 193, 0.80);
-  color: white;
+/* Animación Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

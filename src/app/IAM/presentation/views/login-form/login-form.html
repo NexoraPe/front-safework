@@ -1,40 +1,47 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>{{ 'login.title' | translate }}</mat-card-title>
-  </mat-card-header>
+<div class="login-page">
+  <mat-card class="login-card">
 
-  <mat-card-content>
-    <p>{{ 'login.description' | translate }}</p>
+    <mat-card-header>
+      <mat-card-title>{{ 'login.title' | translate }}</mat-card-title>
+    </mat-card-header>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form-container">
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'login.email' | translate }}</mat-label>
-        <input matInput type="email" formControlName="email" required />
-        @if (loginForm.get('email')?.hasError('email')) {
-        <mat-error>Invalid email format</mat-error>
-        }
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'login.email' | translate }}</mat-label>
+          <input matInput type="email" formControlName="email" required placeholder="E-mail" />
+          @if (loginForm.get('email')?.hasError('email')) {
+          <mat-error>Invalid email format</mat-error>
+          }
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'login.password' | translate }}</mat-label>
-        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required />
-        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
-          👁️
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'login.password' | translate }}</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required
+            placeholder="Password" />
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button mat-flat-button class="btn-submit" type="submit" [disabled]="loginForm.invalid">
+          {{ 'login.submit' | translate }}
         </button>
-      </mat-form-field>
 
-    </form>
-  </mat-card-content>
+      </form>
 
-  <mat-card-footer>
-    <button mat-raised-button color="primary" (click)="onLogin()" [disabled]="loginForm.invalid">
-      {{ 'login.submit' | translate }}
-    </button>
+      <div class="card-footer-links">
+        <a routerLink="/register" class="footer-link">Register User</a>
+        <a routerLink="/" class="footer-link">Back to home</a>
+        <a routerLink="/forgot-password" class="footer-link">Forgot your password?</a>
+      </div>
 
-    <div class="footer-links">
-      <a mat-button routerLink="/register">{{ 'login.noAccount' | translate }}</a>
-      <a mat-button routerLink="/forgot-password">{{ 'login.forgotPassword' | translate }}</a>
-    </div>
-  </mat-card-footer>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
+
+  <footer class="page-footer">
+    <p>© 2025 SafeWork. Todos los derechos reservados.</p>
+  </footer>
+
+</div>

@@ -13,6 +13,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { IamStore } from '../../../application/iam.store'; // Ajusta la ruta si varía
 import { SignUpCommand } from '../../../domain/model/sign-up.command';
 
+import { MatIconModule } from '@angular/material/icon'; // <--- Importante
+
 @Component({
   selector: 'app-register-form',
   imports: [
@@ -23,6 +25,8 @@ import { SignUpCommand } from '../../../domain/model/sign-up.command';
     MatButtonToggleModule,
     RouterLink,
     ReactiveFormsModule,
+
+    MatIconModule
   ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.css'
@@ -36,6 +40,7 @@ export class RegisterForm {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: ['', Validators.required],
+    companyCode: ['', Validators.required], // <--- Nuevo campo del diseño
     role: ['worker', Validators.required]
   });
 
@@ -62,6 +67,7 @@ export class RegisterForm {
       companyId: 1
     };
 
+    console.log('Registration Code:', formValue.companyCode); // Para que veas que llega
     this.iamStore.signUp(command);
   }
 }

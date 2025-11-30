@@ -1,0 +1,38 @@
+/* authentication-layout.component.css (o como se llame tu layout) */
+
+:host {
+  display: block;
+}
+
+app-language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  /* Aseguramos que flote encima */
+}
+
+main {
+  /* AQUÍ VA EL COLOR DE FONDO OSCURO */
+  background-color: #0F1221;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* Usamos min-height en vez de height para evitar cortes en móviles */
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+  /* Un poco de margen para que no toque bordes en móvil */
+  box-sizing: border-box;
+}
+
+.image-logo-container {
+  margin-bottom: 30px;
+  /* Espacio entre el Logo y la Tarjeta que viene del router-outlet */
+}
