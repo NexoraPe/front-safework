@@ -1,111 +1,64 @@
 <div class="incidents-container">
-  <!-- Banner Header -->
   <div class="banner-header">
     <div class="banner-content">
-      <h1 class="banner-title">List of Incidents</h1>
+      <h1 class="banner-title">Incidents Dashboard</h1>
+      <div class="header-actions">
+        <button mat-raised-button color="primary">
+          <mat-icon>add</mat-icon> NEW INCIDENT
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- Main Content -->
+  <div class="filters-container">
+    <div class="filter-group">
+      <h3>Filter by Status</h3>
+
+      <mat-checkbox [checked]="isAllSelected()" (change)="toggleSelectAll($event.checked)" color="primary">
+        Select All
+      </mat-checkbox>
+
+      <div class="status-options">
+        @for (option of statusOptions; track option.value) {
+        <mat-checkbox [checked]="selectedStatuses.includes(option.value)"
+          (change)="toggleStatus(option.value, $event.checked)" [color]="option.color">
+          {{ option.label }}
+        </mat-checkbox>
+        }
+      </div>
+    </div>
+
+    <div class="filter-group right">
+      <mat-checkbox [(ngModel)]="showOnlyMine" (change)="toggleMyIncidents($event.checked)">
+        Show Only My Incidents
+      </mat-checkbox>
+    </div>
+  </div>
+
   <div class="main-content">
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-      <button class="btn btn-primary" (click)="onCreateReport()">
-        <span class="btn-icon">+</span>
-        Create Report
-      </button>
-      <button class="btn btn-secondary" (click)="onUploadReport()">
-        <span class="btn-icon">📤</span>
-        Upload Report
-      </button>
-    </div>
-
-    <!-- Filters Section -->
-    <div class="filters-section">
-      <div class="filters-header">
-        <h2>Filter by Status</h2>
-        <div class="select-all">
-          <label class="checkbox-label">
-            <input
-              type="checkbox"
-              [checked]="isAllSelected()"
-              (change)="toggleAllFilters($event.target.checked)"
-            >
-            <span class="checkmark"></span>
-            Select All
-          </label>
-        </div>
-      </div>
-
-      <div class="status-filters">
-        <div class="filter-group" *ngFor="let status of statusOptions">
-          <label class="checkbox-label">
-            <input
-              type="checkbox"
-              [value]="status.value"
-              [checked]="selectedStatuses.includes(status.value)"
-              (change)="onFilterChange(status.value, $event.target.checked)"
-            >
-            <span class="checkmark" [style.background-color]="status.color"></span>
-            {{ status.label }}
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <!-- Loading State -->
-    <div *ngIf="isLoading" class="loading-state">
-      <div class="spinner"></div>
+    @if (isLoading) {
+    <div class="loading-state">
       <p>Loading incidents...</p>
     </div>
-
-    <!-- Error State -->
-    <div *ngIf="error && !isLoading" class="error-state">
+    } @else if (error) {
+    <div class="error-state">
       <p>{{ error }}</p>
-      <button class="retry-btn" (click)="loadIncidents()">Retry</button>
     </div>
-
-    <!-- Incidents List -->
-    <div *ngIf="!isLoading && !error" class="incidents-list">
-      <!-- No Results -->
-      <div *ngIf="filteredIncidents.length === 0" class="no-results">
-        <p>No incidents found with the selected filters.</p>
+    } @else {
+    <div class="incidents-grid">
+      @for (incident of filteredIncidents; track incident.id) {
+      <app-incident-card [incident]="incident" [currentUser]="currentUser" (viewDetails)="onViewDetails($event)"
+        (updateStatus)="onUpdateStatus($event)">
+      </app-incident-card>
+      } @empty {
+      <div class="empty-state">
+        <p>No incidents found matching your filters.</p>
       </div>
-
-      <!-- Incidents Cards -->
-      <div *ngFor="let incident of filteredIncidents" class="incident-card">
-        <div class="incident-header">
-          <div class="status-indicator">
-            <span
-              class="status-dot"
-              [style.background-color]="getStatusColor(incident.status)"
-            ></span>
-            <span class="status-text">{{ getStatusLabel(incident.status) }}</span>
-          </div>
-          <span class="incident-date">{{ formatDate(incident.createdAt) }}</span>
-        </div>
-
-        <h3 class="incident-title">{{ incident.title }}</h3>
-        <p class="incident-description">{{ incident.description }}</p>
-
-        <div class="incident-footer">
-          <div class="incident-meta">
-            <span class="incident-id">ID: #{{ incident.id }}</span>
-            <span class="incident-creator">Created By: User {{ incident.createdBy }}</span>
-          </div>
-          <div class="incident-actions">
-            <button class="action-btn view-btn">View Details</button>
-            <button class="action-btn edit-btn" *ngIf="incident.status !== 'closed'">Update</button>
-            <a *ngIf="incident.fileUrl" [href]="incident.fileUrl" target="_blank" class="action-btn file-btn">
-              View File
-            </a>
-          </div>
-        </div>
-      </div>
+      }
     </div>
+    }
   </div>
 
-  <!-- Footer -->
   <footer class="app-footer">
     <p>© 2025 SafeWork. Todos los derechos reservados.</p>
   </footer>
