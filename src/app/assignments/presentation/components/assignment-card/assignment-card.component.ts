@@ -1,82 +1,49 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
-import { Assignment, AssignmentStatus } from '../../../domain/model/assignment.model';
-import { SlaViewComponent } from '../sla-view/sla-view.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { Assignment } from '../../../domain/model/assignment.model';
+import { MatMenuModule } from '@angular/material/menu';
 
-/**
- * Assignment Card Component
- * Displays assignment details in a card format
- */
 @Component({
   selector: 'app-assignment-card',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    TranslateModule,
-    SlaViewComponent
-  ],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatChipsModule, MatMenuModule],
   templateUrl: './assignment-card.component.html',
-  styleUrls: ['./assignment-card.component.scss']
+  styleUrl: './assignment-card.component.css'
 })
 export class AssignmentCardComponent {
   @Input({ required: true }) assignment!: Assignment;
 
-  /**
-   * Get status display class for styling
-   */
-  getStatusClass(): string {
-    const statusClasses: Record<AssignmentStatus, string> = {
-      [AssignmentStatus.OPEN]: 'status-open',
-      [AssignmentStatus.IN_PROGRESS]: 'status-in-progress',
-      [AssignmentStatus.CLOSED]: 'status-closed'
-    };
-    return statusClasses[this.assignment.status];
+  // Eventos de acción
+  @Output() start = new EventEmitter<number>();
+  @Output() changePriority = new EventEmitter<string>();
+  @Output() requestClose = new EventEmitter<Assignment>(); // Emitimos todo el objeto
+  @Output() editDocument = new EventEmitter<Assignment>();
+
+  // Helpers visuales
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'ASSIGNED': return 'accent';     // Naranja/Amarillo
+      case 'IN_PROGRESS': return 'primary'; // Azul (Trabajando)
+      case 'CLOSED': return '';             // Gris
+      default: return '';
+    }
   }
 
-  /**
-   * Get status icon
-   */
-  getStatusIcon(): string {
-    const icons: Record<AssignmentStatus, string> = {
-      [AssignmentStatus.OPEN]: 'radio_button_unchecked',
-      [AssignmentStatus.IN_PROGRESS]: 'pending',
-      [AssignmentStatus.CLOSED]: 'check_circle'
-    };
-    return icons[this.assignment.status];
+  // Helpers de lógica de botones (Basado en el nuevo DTO)
+  canStart(): boolean {
+    return this.assignment.status === 'ASSIGNED';
   }
 
-  /**
-   * Get status display text
-   */
-  getStatusText(): string {
-    const texts: Record<AssignmentStatus, string> = {
-      [AssignmentStatus.OPEN]: 'Open',
-      [AssignmentStatus.IN_PROGRESS]: 'In Progress',
-      [AssignmentStatus.CLOSED]: 'Closed'
-    };
-    return texts[this.assignment.status];
+  canClose(): boolean {
+    return this.assignment.status === 'IN_PROGRESS';
   }
 
-  /**
-   * Format date for display
-   */
-  formatDate(date: Date): string {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+  // Helper color prioridad
+  getPriorityColor(priority: string): string {
+    return priority === 'HIGH' ? 'warn' : priority === 'MEDIUM' ? 'accent' : 'primary';
   }
 }
-

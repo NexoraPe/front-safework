@@ -1,109 +1,16 @@
-<div class="assignments-board-container" role="main" [attr.aria-label]="'assignments.board.ariaLabel' | translate">
-  <!-- Header Section -->
-  <header class="board-header">
-    <h1 class="board-title">{{ 'assignments.board.title' | translate }}</h1>
-    
-    <!-- Legend -->
-    <div class="status-legend" role="group" [attr.aria-label]="'assignments.board.legendAriaLabel' | translate">
-      <div class="legend-item" *ngFor="let status of [AssignmentStatus.OPEN, AssignmentStatus.IN_PROGRESS, AssignmentStatus.CLOSED]">
-        <span class="legend-indicator" [ngClass]="'status-' + status.toLowerCase().replace('_', '-')"></span>
-        <span class="legend-label">{{ getStatusText(status) }}</span>
-      </div>
+<div class="container" style="padding: 20px;">
+  <h1>My Assignments Board</h1>
+
+  <div class="grid">
+    @for (task of assignments; track task.id) { <app-assignment-card [assignment]="task" (start)="onStart($event)"
+      (requestClose)="onRequestClose($event)" (editDocument)="onEditDocument($event)"
+      (changePriority)="onChangePriority(task, $event)">
+    </app-assignment-card>
+
+    } @empty {
+    <div class="empty-state">
+      <p>No tienes tareas asignadas. Ve al Dashboard para tomar una.</p>
     </div>
-  </header>
-
-  <!-- Loading State -->
-  <div class="loading-container" *ngIf="loading" role="status" aria-live="polite" [attr.aria-label]="'assignments.board.loadingAriaLabel' | translate">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p>{{ 'assignments.board.loadingText' | translate }}</p>
+    }
   </div>
-
-  <!-- Assignments Content -->
-  <div class="board-content" *ngIf="!loading && (assignments$ | async) as assignments">
-    
-    <!-- Open Assignments Section -->
-    <section 
-      class="status-section" 
-      role="region" 
-      [attr.aria-label]="'assignments.board.openSectionAriaLabel' | translate">
-      
-      <h2 class="section-title open-title">
-        <mat-icon>{{ getStatusIcon(AssignmentStatus.OPEN) }}</mat-icon>
-        <span>{{ 'assignments.board.openTitle' | translate }}</span>
-        <span class="count-badge">{{ getAssignmentsByStatus(assignments, AssignmentStatus.OPEN).length }}</span>
-      </h2>
-      
-      <div class="assignments-list" role="list">
-        <div *ngFor="let assignment of getAssignmentsByStatus(assignments, AssignmentStatus.OPEN); trackBy: trackByAssignmentId" role="listitem">
-          <app-assignment-card [assignment]="assignment"></app-assignment-card>
-        </div>
-        
-        <div class="empty-state" *ngIf="getAssignmentsByStatus(assignments, AssignmentStatus.OPEN).length === 0">
-          <mat-icon>inbox</mat-icon>
-          <p>{{ 'assignments.board.noOpenAssignments' | translate }}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- In Progress Assignments Section -->
-    <section 
-      class="status-section" 
-      role="region" 
-      [attr.aria-label]="'assignments.board.inProgressSectionAriaLabel' | translate">
-      
-      <h2 class="section-title in-progress-title">
-        <mat-icon>{{ getStatusIcon(AssignmentStatus.IN_PROGRESS) }}</mat-icon>
-        <span>{{ 'assignments.board.inProgressTitle' | translate }}</span>
-        <span class="count-badge">{{ getAssignmentsByStatus(assignments, AssignmentStatus.IN_PROGRESS).length }}</span>
-      </h2>
-      
-      <div class="assignments-list" role="list">
-        <div *ngFor="let assignment of getAssignmentsByStatus(assignments, AssignmentStatus.IN_PROGRESS); trackBy: trackByAssignmentId" role="listitem">
-          <app-assignment-card [assignment]="assignment"></app-assignment-card>
-        </div>
-        
-        <div class="empty-state" *ngIf="getAssignmentsByStatus(assignments, AssignmentStatus.IN_PROGRESS).length === 0">
-          <mat-icon>inbox</mat-icon>
-          <p>{{ 'assignments.board.noInProgressAssignments' | translate }}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Closed Assignments Section -->
-    <section 
-      class="status-section" 
-      role="region" 
-      [attr.aria-label]="'assignments.board.closedSectionAriaLabel' | translate">
-      
-      <h2 class="section-title closed-title">
-        <mat-icon>{{ getStatusIcon(AssignmentStatus.CLOSED) }}</mat-icon>
-        <span>{{ 'assignments.board.closedTitle' | translate }}</span>
-        <span class="count-badge">{{ getAssignmentsByStatus(assignments, AssignmentStatus.CLOSED).length }}</span>
-      </h2>
-      
-      <div class="assignments-list" role="list">
-        <div *ngFor="let assignment of getAssignmentsByStatus(assignments, AssignmentStatus.CLOSED); trackBy: trackByAssignmentId" role="listitem">
-          <app-assignment-card [assignment]="assignment"></app-assignment-card>
-        </div>
-        
-        <div class="empty-state" *ngIf="getAssignmentsByStatus(assignments, AssignmentStatus.CLOSED).length === 0">
-          <mat-icon>inbox</mat-icon>
-          <p>{{ 'assignments.board.noClosedAssignments' | translate }}</p>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- Empty State (No Assignments) -->
-  <div class="empty-board" *ngIf="!loading && (assignments$ | async)?.length === 0">
-    <mat-icon class="empty-icon">assignment</mat-icon>
-    <h2>{{ 'assignments.board.emptyTitle' | translate }}</h2>
-    <p>{{ 'assignments.board.emptyDescription' | translate }}</p>
-  </div>
-
-  <!-- Footer -->
-  <footer class="board-footer">
-    <p>{{ 'assignments.board.footer' | translate }}</p>
-  </footer>
 </div>

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { Assignment, AssignmentStatus } from '../../../domain/model/assignment.model';
-import { AssignmentService } from '../../../application/services/assignment.service';
+import { AssignmentService } from '../../../infrastructure/assignment.service';
+import { Assignment } from '../../../domain/model/assignment.model';
 import { AssignmentCardComponent } from '../../components/assignment-card/assignment-card.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { IncidentService } from '../../../../incidents/infrastructure/incident.service';
+import { CloseIncidentDialogComponent } from '../../components/close-incident-dialog/close-incident-dialog.component';
 
 /**
  * Assignments Board Component
@@ -15,78 +15,98 @@ import { AssignmentCardComponent } from '../../components/assignment-card/assign
 @Component({
   selector: 'app-assignments-board',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    TranslateModule,
-    AssignmentCardComponent
-  ],
+  imports: [CommonModule, AssignmentCardComponent, MatSnackBarModule],
   templateUrl: './assignments-board.html',
   styleUrls: ['./assignments-board.css']
 })
 export class AssignmentsBoard implements OnInit {
-  assignments$!: Observable<Assignment[]>;
-  loading = true;
+  // Inyecciones
+  private assignmentService = inject(AssignmentService);
+  private incidentService = inject(IncidentService); // Necesario para el PATCH documento
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
 
-  // Status enum for template access
-  AssignmentStatus = AssignmentStatus;
+  assignments: Assignment[] = [];
 
-  constructor(private assignmentService: AssignmentService) {}
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadAssignments();
   }
 
-  /**
-   * Load all assignments
-   */
-  loadAssignments(): void {
-    this.loading = true;
-    this.assignments$ = this.assignmentService.getAllAssignments();
-    
-    // Simulate loading state
-    setTimeout(() => {
-      this.loading = false;
-    }, 500);
+  loadAssignments() {
+    this.assignmentService.getMyAssignments().subscribe(data => {
+      this.assignments = data;
+    });
   }
 
-  /**
-   * Filter assignments by status
-   */
-  getAssignmentsByStatus(assignments: Assignment[] | null, status: AssignmentStatus): Assignment[] {
-    if (!assignments) return [];
-    return assignments.filter(a => a.status === status);
+  // 1. CAMBIAR PRIORIDAD
+  onChangePriority(assignment: Assignment, newPriority: string) {
+    if (assignment.priority === newPriority) return;
+
+    // Optimistic Update (Actualizamos visualmente antes de la respuesta para que se sienta rápido)
+    const oldPriority = assignment.priority;
+    assignment.priority = newPriority as any;
+
+    this.assignmentService.updatePriority(assignment.id, newPriority).subscribe({
+      error: () => {
+        // Si falla, revertimos
+        assignment.priority = oldPriority;
+        this.snackBar.open('Error updating priority', 'Close');
+      }
+    });
   }
 
-  /**
-   * Get status display text
-   */
-  getStatusText(status: AssignmentStatus): string {
-    const texts: Record<AssignmentStatus, string> = {
-      [AssignmentStatus.OPEN]: 'Open',
-      [AssignmentStatus.IN_PROGRESS]: 'In Progress',
-      [AssignmentStatus.CLOSED]: 'Closed'
-    };
-    return texts[status];
+  // 2. INICIAR TAREA 
+  onStart(incidentId: number) {
+    this.assignmentService.start(incidentId).subscribe(() => {
+      this.loadAssignments(); // Recargar para ver cambio de estado
+    });
   }
 
-  /**
-   * Get status icon
-   */
-  getStatusIcon(status: AssignmentStatus): string {
-    const icons: Record<AssignmentStatus, string> = {
-      [AssignmentStatus.OPEN]: 'radio_button_unchecked',
-      [AssignmentStatus.IN_PROGRESS]: 'pending',
-      [AssignmentStatus.CLOSED]: 'check_circle'
-    };
-    return icons[status];
+  // 3. FLUJO DE CIERRE (Abre Modal -> Update Doc -> Close)
+  onRequestClose(assignment: Assignment) {
+    const dialogRef = this.dialog.open(CloseIncidentDialogComponent, {
+      width: '400px',
+      data: { isEditing: false, currentUrl: '' }
+    });
+
+    dialogRef.afterClosed().subscribe(url => {
+      if (url) {
+        this.executeCloseFlow(assignment.incidentId, url);
+      }
+    });
   }
 
-  /**
-   * Track by function for assignment lists
-   */
-  trackByAssignmentId(index: number, assignment: Assignment): string {
-    return assignment.id;
+  private executeCloseFlow(incidentId: number, url: string) {
+    // Lógica secuencial: Primero guardamos URL, luego cerramos
+    this.incidentService.updateDocumentUrl(incidentId, url).subscribe({
+      next: () => {
+        // 2. Si guardó URL, procedemos a cerrar
+        this.assignmentService.close(incidentId).subscribe({
+          next: () => {
+            this.snackBar.open('Incident Closed Successfully! 🎉', 'Ok');
+            this.loadAssignments();
+          },
+          error: () => this.snackBar.open('Error closing incident', 'Close')
+        });
+      },
+      error: () => this.snackBar.open('Error saving document URL', 'Close')
+    });
+  }
+
+  // 4. FLUJO EDITAR DOCUMENTO (Solo Update Doc)
+  onEditDocument(assignment: Assignment) {
+    const dialogRef = this.dialog.open(CloseIncidentDialogComponent, {
+      width: '400px',
+      data: { isEditing: true, currentUrl: assignment.documentUrl } // Pasamos URL actual si la tuviéramos
+    });
+
+    dialogRef.afterClosed().subscribe(url => {
+      if (url) {
+        this.incidentService.updateDocumentUrl(assignment.incidentId, url).subscribe(() => {
+          this.snackBar.open('Document Updated', 'Ok');
+          // Opcional: recargar si quieres reflejarlo en la tarjeta
+        });
+      }
+    });
   }
 }
