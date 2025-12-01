@@ -1,81 +1,271 @@
-.profile-container {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
+/* 1. EL FONDO GENERAL (Gris Suave) */
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #F4F6F8;
+  /* Un gris azulado muy suave, moderno */
 }
 
-.welcome-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #ffffff;
-  background: #120625;
-  padding: 5rem;
-  border-radius: 1px;
-  margin-bottom: 1.5rem;
+.page-header {
+  background: linear-gradient(to bottom, #F9FAFB, #FFFFFF);
+  border-bottom: 1px solid #E5E7EB;
+  padding: 50px 0 40px;
+  /* Aumenté el padding vertical para más aire general */
+  margin-bottom: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-.section-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  color: #34495e;
+.header-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2.5rem;
+/* TÍTULO PRINCIPAL */
+.title-group h1 {
+  /* AQUÍ ESTÁ LA CLAVE: 15px de separación real */
+  margin: 0 0 15px 0 !important;
+
+  font-size: 2.5rem;
+  /* Un poco más grande para más impacto */
+  font-weight: 800;
+  color: #1A1835;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  /* Altura de línea compacta para el título */
 }
 
-.info-card {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 1rem;
-  text-align: left;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.info-card label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #7B7DC1;
-}
-
-.info-card p {
+/* SUBTÍTULO */
+.subtitle {
+  margin: 0;
   font-size: 1.1rem;
-  margin-top: 0.3rem;
+  color: #6B7280;
+  font-weight: 500;
+  line-height: 1.5;
+  /* Altura de línea relajada para lectura */
+}
+
+/* 3. EL CONTENEDOR DE LA TARJETA */
+.profile-container {
+  /* Quitamos el background-color de aquí porque ya lo pusimos en el :host */
+  /* background-color: #f5f5f5; <-- BORRAR ESTO */
+
+  padding: 0 20px 60px;
+  /* Padding lateral y abajo */
+  display: flex;
+  justify-content: center;
+}
+
+.page-header p {
+  margin: 5px 0 0;
+  color: #666;
+  font-size: 1rem;
+}
+
+
+/* --- TARJETA --- */
+.profile-card {
+  width: 100%;
+  max-width: 900px;
+  /* Tarjeta ancha y espaciosa */
+  border-radius: 16px !important;
+  overflow: visible !important;
+  /* IMPORTANTE: Para que la sombra del avatar no se corte */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  background: white;
+  padding: 0 !important;
+  /* Quitamos padding default de material */
+}
+
+/* Franja Morada */
+.card-banner {
+  height: 140px;
+  background-color: #512DA8;
+  /* El morado sólido de tu imagen */
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* Cuerpo de la tarjeta (Flex Row) */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px 40px;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .card-body {
+    flex-direction: row;
+    /* En PC se ponen lado a lado */
+  }
+}
+
+/* --- COLUMNA IZQUIERDA (Avatar + Fechas) --- */
+.left-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centrado en su columna */
+  min-width: 200px;
+}
+
+.avatar-wrapper {
+  margin-top: -70px;
+  /* TRUCO: Subir el avatar sobre el banner */
+  margin-bottom: 30px;
+}
+
+.avatar-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: #E0E0E0;
+  /* Gris placeholder */
+  border: 5px solid white;
+  /* Borde blanco grueso */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9E9E9E;
+}
+
+.avatar-circle mat-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
+}
+
+.dates-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.date-item label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #999;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.date-item span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* --- COLUMNA DERECHA (Datos) --- */
+.right-section {
+  flex: 1;
+  padding-top: 20px;
+  /* Para alinear con el avatar bajado */
+}
+
+/* Identidad */
+.identity-header {
+  margin-bottom: 30px;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.name-row h2 {
+  margin: 0;
+  font-size: 2rem;
+  /* Nombre grande */
+  font-weight: 800;
+  color: #333;
+  text-transform: uppercase;
+  /* Como en la foto */
+}
+
+.role-badge {
+  background-color: #E3F2FD;
+  /* Azul clarito */
+  color: #1976D2;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.custom-divider {
+  border-top-width: 2px;
+  border-color: #F0F0F0;
+}
+
+/* Grid de Contacto */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 600px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+    /* 2 columnas */
+  }
+}
+
+.info-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.icon-box mat-icon {
+  color: #512DA8;
+  /* El mismo morado del header */
+  font-size: 24px;
+}
+
+.info-text label {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.info-text p {
+  margin: 0;
+  font-size: 1.1rem;
+  /* Texto legible */
+  font-weight: 500;
   color: #222;
 }
 
-.action-buttons {
+/* Botón */
+.actions-row {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: flex-end;
 }
 
-.btn {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 8px;
+.btn-update {
+  border-radius: 20px;
+  /* Botón redondeado estilo píldora */
+  border: 1px solid #512DA8;
+  color: #512DA8;
+  padding: 0 25px;
+  height: 45px;
   font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.1s ease;
-  background-color: #7B7DC1;
-  color: #fff;
 }
 
-.btn:hover {
-  filter: brightness(0.9);
-  transform: scale(1.02);
-}
-
-.loading {
-  text-align: center;
-  margin-top: 3rem;
-  font-size: 1.2rem;
+.btn-update:hover {
+  background-color: #F3E5F5;
 }

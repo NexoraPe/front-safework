@@ -1,41 +1,111 @@
-<div class="profile-container" *ngIf="user as u">
-  <h1 class="welcome-title">¡{{ 'profile.welcome' | translate }} {{ u.firstName }}!</h1>
-  <h2 class="section-title">{{ 'profile.personalInformation' | translate }}</h2>
-
-  <div class="info-grid">
-    <div class="info-card">
-      <label>{{ 'profile.firstName' | translate }}</label>
-      <p>{{ u.firstName }}</p>
+<!-- 1. PAGE HEADER (Separado) -->
+<div class="page-header">
+  <div class="header-content">
+    <div class="title-group">
+      <h1>My Profile</h1>
+      <p class="subtitle">Welcome back, {{ user?.fullName || 'User' }}</p>
     </div>
-    <div class="info-card">
-      <label>{{ 'profile.lastName' | translate }}</label>
-      <p>{{ u.lastName }}</p>
-    </div>
-    <div class="info-card">
-      <label>{{ 'profile.dni' | translate }}</label>
-      <p>{{ u.dni }}</p>
-    </div>
-    <div class="info-card">
-      <label>{{ 'profile.phoneNumber' | translate }}</label>
-      <p>{{ u.phoneNumber }}</p>
-    </div>
-    <div class="info-card">
-      <label>{{ 'profile.dateOfBirth' | translate }}</label>
-      <p>{{ u.dateOfBirth | date }}</p>
-    </div>
-    <div class="info-card">
-      <label>{{ 'profile.gender' | translate }}</label>
-      <p>{{ u.gender }}</p>
-    </div>
-  </div>
-
-  <div class="action-buttons">
-    <button class="btn edit">{{ 'profile.editInfo' | translate }}</button>
-    <button class="btn logout">{{ 'profile.logout' | translate }}</button>
-    <button class="btn delete">{{ 'profile.deleteAccount' | translate }}</button>
   </div>
 </div>
 
-<div *ngIf="!user" class="loading">
-  {{ 'profile.loading' | translate }}
+<!-- 2. CONTENEDOR PRINCIPAL -->
+<div class="profile-container">
+
+  @if (loading) {
+  <div class="loading-state">
+    <p>Loading Profile...</p>
+  </div>
+  } @else if (user) {
+
+  <mat-card class="profile-card">
+
+    <!-- Franja Morada Superior -->
+    <div class="card-banner"></div>
+
+    <div class="card-body">
+
+      <!-- COLUMNA IZQUIERDA: Avatar y Fechas -->
+      <div class="left-section">
+        <!-- Avatar (Superpuesto) -->
+        <div class="avatar-wrapper">
+          <div class="avatar-circle">
+            <mat-icon>person</mat-icon>
+          </div>
+        </div>
+
+        <!-- Fechas (Member Since / Last Update) -->
+        <div class="dates-info">
+          <div class="date-item">
+            <label>MEMBER SINCE</label>
+            <span>{{ user.createdAt | date:'mediumDate' }}</span>
+          </div>
+
+          @if(user.updatedAt) {
+          <div class="date-item">
+            <label>LAST UPDATE</label>
+            <span>{{ user.updatedAt | date:'shortDate' }}</span>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA: Identidad y Datos -->
+      <div class="right-section">
+
+        <!-- Identidad (Nombre y Rol) -->
+        <div class="identity-header">
+          <div class="name-row">
+            <h2>{{ user.fullName }}</h2>
+            <span class="role-badge">{{ user.roles[0] }}</span>
+          </div>
+          <mat-divider class="custom-divider"></mat-divider>
+        </div>
+
+        <!-- Grid de Información de Contacto -->
+        <div class="contact-grid">
+
+          <div class="info-item">
+            <div class="icon-box">
+              <mat-icon>email</mat-icon>
+            </div>
+            <div class="info-text">
+              <label>Email Address</label>
+              <p>{{ user.email }}</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-box">
+              <mat-icon>phone</mat-icon>
+            </div>
+            <div class="info-text">
+              <label>Phone Number</label>
+              <p>{{ user.phoneNumber || 'Not provided' }}</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-box">
+              <mat-icon>business</mat-icon>
+            </div>
+            <div class="info-text">
+              <label>Company ID</label>
+              <p>#{{ user.companyId }}</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Botón de Acción (Alineado a la derecha) -->
+        <div class="actions-row">
+          <button mat-stroked-button class="btn-update" (click)="openEditDialog()">
+            <mat-icon>edit</mat-icon> Update Profile
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </mat-card>
+
+  }
 </div>

@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Update Profile</h2>
+<mat-dialog-content>
+    <form [formGroup]="form" class="edit-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="fullName" />
+            @if (form.get('fullName')?.hasError('required')) {
+            <mat-error>Name is required</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber" placeholder="e.g. 987654321" />
+            @if (form.get('phoneNumber')?.hasError('pattern')) {
+            <mat-error>Invalid phone number</mat-error>
+            }
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">
+        Save Changes
+    </button>
+</mat-dialog-actions>

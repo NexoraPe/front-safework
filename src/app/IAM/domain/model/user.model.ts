@@ -5,4 +5,7 @@ export interface User {
   email: string;
   roles: string[];
   token?: string; // Para facilitar el acceso al token
+  phoneNumber?: string;
+  createdAt?: string; // ISO Date
+  updatedAt?: string; // ISO Date
 }
