@@ -1,0 +1,134 @@
+/* notification-card.component.css */
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+.notif-card-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 16px;
+    /* Bordes redondeados modernos */
+    overflow: hidden;
+    /* Clave para que el color de fondo respete los bordes */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #7B7DC1;
+    /* Color base por si acaso */
+}
+
+.notif-card-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* --- 1. CABECERA (OSCURA) --- */
+.card-header {
+    background-color: #121420;
+    /* Negro/Azul muy profundo */
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Círculo del Icono */
+.icon-circle {
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    /* Texto blanco sobre fondo oscuro (OK) */
+    letter-spacing: 0.5px;
+}
+
+.date {
+    font-size: 12px;
+    color: #A0A0A0;
+    /* Gris claro */
+    margin-top: 2px;
+}
+
+/* --- 2. CUERPO (MORADO) --- */
+.card-content-wrapper {
+    background-color: #7B7DC1;
+    /* TU COLOR LILA */
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 500;
+    /* IMPORTANTE: Texto oscuro sobre fondo lila para contraste */
+    color: #1A1835;
+}
+
+/* Divisor sutil */
+.card-divider {
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+}
+
+/* --- 3. FOOTER (Dentro del morado) --- */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-id {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(26, 24, 53, 0.7);
+    /* Azul oscuro con transparencia */
+}
+
+.tiny-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Badge SENT */
+.status-badge {
+    background-color: rgba(26, 24, 53, 0.2);
+    /* Oscuro semitransparente */
+    color: #1A1835;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}

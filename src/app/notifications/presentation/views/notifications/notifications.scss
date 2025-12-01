@@ -1,52 +1,66 @@
+/* notifications.scss */
+
 .notifications-page {
   min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 0;
+  background-color: #0F1221;
+  /* El mismo fondo oscuro del resto de la app */
+  color: white;
+  padding-bottom: 40px;
 }
 
+/* Banner Superior */
 .page-header {
-  width: 100%;
-  margin-bottom: 32px;
-
-  .header-banner {
-    background: #0D0C22;
-    padding: 48px 24px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .page-title {
-    font-size: 48px;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    letter-spacing: 0.5px;
-  }
+  background: linear-gradient(90deg, #7B7DC1 0%, #5A5CA0 100%);
+  /* Degradado Lila */
+  padding: 50px 20px 50px 20px;
+  /* Padding extra abajo para el efecto overlap */
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-// Responsive design
-@media (max-width: 768px) {
-  .page-header {
-    .header-banner {
-      padding: 32px 16px;
-    }
-
-    .page-title {
-      font-size: 32px;
-    }
-  }
+.page-title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1px;
+  font-family: 'Raleway', sans-serif;
+  /* Si usas esa fuente */
 }
 
-// Dark mode support
-@media (prefers-color-scheme: dark) {
-  .notifications-page {
-    background-color: #121212;
-  }
-
-  .page-header {
-    .header-banner {
-      background: linear-gradient(135deg, #7e57c2 0%, #673ab7 100%);
-    }
-  }
+/* Contenedor de Tarjetas */
+.notifications-container {
+  max-width: 1100px;
+  /* Ancho controlado */
+  margin: 0 auto 0;
+  /* Margen negativo para que suba sobre el banner */
+  padding: 30px;
+  position: relative;
+  z-index: 2;
 }
 
+.cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Separación entre notificaciones */
+}
+
+/* Estados de Carga y Error */
+.state-message {
+  text-align: center;
+  padding: 60px;
+  color: #888;
+  background: #161925;
+  border-radius: 16px;
+  border: 1px dashed #333;
+  margin-top: 20px;
+
+  &.error {
+    color: #ff5252;
+  }
+
+  &.empty {
+    font-size: 1.1rem;
+  }
+}

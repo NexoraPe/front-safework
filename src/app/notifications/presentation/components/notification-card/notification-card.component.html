@@ -1,0 +1,33 @@
+<div class="notif-card-container" [class.unread]="!notification.isRead">
+
+    <div class="card-header">
+        <div class="header-left">
+            <div class="icon-circle">
+                <mat-icon>{{ iconName }}</mat-icon>
+            </div>
+            <div class="header-text">
+                <span class="title">{{ notification.subject }}</span>
+                <span class="date">{{ notification.createdAt | date:'mediumDate' }} at {{ notification.createdAt |
+                    date:'shortTime' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-content-wrapper">
+        <div class="card-body">
+            <p>{{ notification.body }}</p>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="card-footer">
+            <div class="footer-id">
+                <mat-icon class="tiny-icon">tag</mat-icon>
+                <span>{{ notification.id | slice:0:8 }}...</span>
+            </div>
+
+            <span class="status-badge">SENT</span>
+        </div>
+    </div>
+
+</div>

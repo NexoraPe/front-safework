@@ -5,9 +5,32 @@
     </div>
   </header>
 
-  <app-notification-list
-    [notifications]="notifications"
-    [loading]="loading"
-    [error]="error">
-  </app-notification-list>
+  <div class="notifications-container">
+
+    @if (loading) {
+    <div class="state-message">
+      <p>Loading notifications...</p>
+    </div>
+    }
+
+    @else if (error) {
+    <div class="state-message error">
+      <p>{{ error }}</p>
+      <button (click)="refreshNotifications()">Try Again</button>
+    </div>
+    }
+
+    @else {
+    <div class="cards-stack">
+      @for (notification of notifications; track notification.id) {
+      <app-notification-card [notification]="notification">
+      </app-notification-card>
+      } @empty {
+      <div class="state-message empty">
+        <p>No notifications yet.</p>
+      </div>
+      }
+    </div>
+    }
+  </div>
 </div>
