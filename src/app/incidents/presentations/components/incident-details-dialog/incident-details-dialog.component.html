@@ -1,0 +1,69 @@
+<div class="dialog-container">
+
+    <div class="dialog-header">
+        <div class="header-meta">
+            <span class="id-badge">INCIDENT #{{ incident.id }}</span>
+
+            <span class="status-badge" [class]="'status-' + incident.status.toLowerCase()">
+                {{ incident.status }}
+            </span>
+        </div>
+
+        <h2 mat-dialog-title>{{ incident.title }}</h2>
+    </div>
+
+    <mat-dialog-content class="dialog-body">
+
+        <div class="info-section">
+            <label>Description</label>
+            <p class="description-text">{{ incident.description }}</p>
+        </div>
+
+        <div class="grid-details">
+
+            <div class="detail-item">
+                <mat-icon>location_on</mat-icon>
+                <div class="detail-content">
+                    <label>Location</label>
+                    <span>{{ incident.location }}</span>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <mat-icon>person</mat-icon>
+                <div class="detail-content">
+                    <label>Reported By</label>
+                    <span>{{ incident.reporterName }}</span>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <mat-icon>engineering</mat-icon>
+                <div class="detail-content">
+                    <label>Assigned To</label>
+                    <span [class.unassigned]="!incident.assigneeName">
+                        {{ incident.assigneeName || 'Pending Assignment' }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <mat-icon>calendar_today</mat-icon>
+                <div class="detail-content">
+                    <label>Created On</label>
+                    <span>Oct 1, 2025</span>
+                </div>
+            </div>
+        </div>
+
+    </mat-dialog-content>
+
+    <div class="dialog-footer" align="end"> @if (incident.documentUrl) {
+        <button mat-stroked-button color="primary" (click)="openDocument()">
+            <mat-icon>description</mat-icon> View Evidence
+        </button>
+        }
+
+        <button mat-flat-button color="primary" (click)="close()">Close Details</button>
+    </div>
+</div>

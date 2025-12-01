@@ -1,46 +1,180 @@
-.incident-card {
-    margin-bottom: 16px;
-    border-left: 5px solid transparent;
-    /* Borde izquierdo para el estado */
-    transition: transform 0.2s;
+/* Contenedor Tarjeta */
+.custom-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+
+    /* CAMBIO 1: Borde base transparente para reservar el espacio */
+    border: 1px solid #E0E0E0;
+    /* El borde gris fino alrededor */
+    border-left: 6px solid transparent;
+    /* El borde grueso a la izquierda */
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    /* Para que el borde respete el radius si fuera necesario */
 }
 
-.incident-card:hover {
+.custom-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Colores de borde según estado */
+/* --- CAMBIO 2: LOS COLORES DEL BORDE --- */
+
+/* OPEN -> Rojo (Urgente) */
 .status-open {
-    border-left-color: #f44336;
+    border-left-color: #FF5252 !important;
+}
+
+/* ASSIGNED / IN_PROGRESS -> Amarillo/Ambar (En proceso) */
+.status-assigned,
+.status-in_progress {
+    border-left-color: #FFC107 !important;
+}
+
+/* CLOSED -> Verde (Éxito) */
+.status-closed {
+    border-left-color: #4CAF50 !important;
+}
+
+/* --- 1. STATUS ROW --- */
+.card-status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Los Puntos de Color */
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-open {
+    background-color: #FF5252;
 }
 
 /* Rojo */
-.status-assigned {
-    border-left-color: #ff9800;
+.dot-assigned {
+    background-color: #FFC107;
 }
 
-/* Naranja */
-.status-in_progress {
-    border-left-color: #2196f3;
+/* Amarillo */
+.dot-in_progress {
+    background-color: #FFC107;
 }
 
-/* Azul */
-.status-closed {
-    border-left-color: #9e9e9e;
+/* Amarillo */
+.dot-closed {
+    background-color: #4CAF50;
 }
 
-/* Gris */
+/* Verde */
 
-.meta-info {
+.status-text {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #333;
+}
+
+.date-text {
+    font-size: 12px;
+    color: #999;
+}
+
+/* --- 2. MAIN CONTENT --- */
+.incident-title {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+}
+
+.incident-desc {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* --- 3. FOOTER & BUTTONS --- */
+.card-actions-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 10px;
-    font-size: 0.9em;
-    color: #555;
-    background-color: #f9f9f9;
-    padding: 8px;
-    border-radius: 4px;
+    border-top: 1px solid #f0f0f0;
+    /* Línea separadora sutil */
+    padding-top: 15px;
+    flex-wrap: wrap;
+    /* Para móviles */
+    gap: 15px;
 }
 
-.meta-info p {
-    margin: 4px 0;
+.meta-tags {
+    display: flex;
+    gap: 10px;
+}
+
+.tag {
+    background-color: #F5F7FA;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #555;
+    font-weight: 500;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Estilos de Botones Personalizados (Estilo Plano) */
+.btn-action {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-action:hover {
+    opacity: 0.9;
+}
+
+/* Colores Específicos según foto */
+.btn-dark {
+    background-color: #11162D;
+    /* Negro azulado */
+    color: white;
+}
+
+.btn-yellow {
+    background-color: #FFC107;
+    /* Amarillo/Naranja */
+    color: #333;
+    /* Texto oscuro para contraste */
+}
+
+.btn-blue {
+    background-color: #00BCD4;
+    /* Cyan/Azul */
+    color: white;
 }

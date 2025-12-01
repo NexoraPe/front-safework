@@ -1,50 +1,124 @@
-.incidents-container {
-  padding: 20px;
-  background-color: #f5f5f5;
+/* Layout General */
+.page-layout {
   min-height: 100vh;
+  background-color: #F4F6F8;
+  /* Fondo gris muy suave (como en la foto) */
+  font-family: 'Roboto', sans-serif;
+  /* O tu fuente principal */
 }
 
-.banner-header {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+/* --- HEADER OSCURO --- */
+.dark-header {
+  background-color: #11162D;
+  /* Tu color oscuro corporativo */
+  padding: 30px 0;
+  color: white;
 }
 
-.banner-content {
+.header-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Estilos de Filtros */
-.filters-container {
+.header-content h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.btn-create {
+  background-color: #1A1835;
+  /* Un tono ligeramente diferente para el botón o usar borde */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  height: 45px;
+  padding: 0 20px;
+  border-radius: 6px;
+}
+
+/* --- MAIN CONTAINER --- */
+.main-container {
+  max-width: 1300px;
+  margin: 0 auto 0;
+  /* Efecto overlap: sube sobre el header */
+  padding: 20px 20px 40px;
+}
+
+/* --- FILTERS CARD --- */
+.filters-card {
   background: white;
-  padding: 15px 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.filters-card h3 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.filters-wrapper {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
 }
 
-.filter-group h3 {
-  margin: 0 0 10px 0;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.status-options {
+.status-group {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
-.incidents-grid {
+/* Checkbox Colors (Simulación visual) */
+/* Angular Material hace difícil colorear checkboxes individuales sin ::ng-deep */
+::ng-deep .checkbox-open .mdc-checkbox__background {
+  border-color: #FF5252 !important;
+}
+
+::ng-deep .checkbox-open.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  background-color: #FF5252 !important;
+}
+
+::ng-deep .checkbox-in_progress .mdc-checkbox__background {
+  border-color: #FFC107 !important;
+}
+
+::ng-deep .checkbox-in_progress.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  background-color: #FFC107 !important;
+}
+
+::ng-deep .checkbox-closed .mdc-checkbox__background {
+  border-color: #4CAF50 !important;
+}
+
+::ng-deep .checkbox-closed.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  background-color: #4CAF50 !important;
+}
+
+
+.mine-toggle {
+  margin-left: auto;
+  /* Empuja a la derecha */
+}
+
+/* --- STACK DE INCIDENTES --- */
+.incidents-stack {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-size: 12px;
 }

@@ -1,53 +1,45 @@
-<mat-card class="incident-card" [class]="'status-' + incident.status.toLowerCase()">
+<div class="custom-card" [class]="'status-' + incident.status.toLowerCase()">
 
-    <mat-card-header>
-        <mat-chip-listbox class="status-chip">
-            <mat-chip-option [color]="getStatusColor(incident.status)" selected>
-                {{ incident.status }}
-            </mat-chip-option>
-        </mat-chip-listbox>
-
-        <mat-card-title>{{ incident.title }}</mat-card-title>
-        <mat-card-subtitle>ID: #{{ incident.id }}</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-        <p class="description">{{ incident.description }}</p>
-
-        <div class="meta-info">
-            <p><strong>Location:</strong> {{ incident.location }}</p>
-
-            <p><strong>Created By:</strong> {{ incident.reporterName }}</p>
-
-            @if (incident.assigneeName) {
-            <p><strong>Assigned To:</strong> {{ incident.assigneeName }}</p>
-            }
+    <div class="card-status-row">
+        <div class="status-indicator">
+            <span class="dot" [class]="'dot-' + incident.status.toLowerCase()"></span>
+            <span class="status-text">{{ incident.status }}</span>
         </div>
-    </mat-card-content>
 
-    <mat-card-actions align="end">
-        @if (incident.documentUrl) {
-        <button mat-stroked-button color="primary" (click)="openDocument()">
-            <mat-icon>description</mat-icon> View File
-        </button>
-        }
+        <span class="date-text">Oct 1, 2025, 05:00 AM</span>
+    </div>
 
-        @if (canAssign()) {
-        <button mat-flat-button color="primary" (click)="assignToMe.emit(incident.id)">
-            Assign to Me
-        </button>
-        }
+    <div class="card-main-content">
+        <h2 class="incident-title">{{ incident.title }}</h2>
+        <p class="incident-desc">{{ incident.description }}</p>
+    </div>
 
-        <!--    
-        
-        <button mat-flat-button color="accent" (click)="updateStatus.emit(incident.id)">
-            Update
-        </button>
-        
-        -->
+    <div class="card-actions-footer">
 
-        <button mat-stroked-button (click)="viewDetails.emit(incident.id)">
-            View Details
-        </button>
-    </mat-card-actions>
-</mat-card>
+        <div class="meta-tags">
+            <span class="tag">ID: #{{ incident.id }}</span>
+            <span class="tag">Created By: {{ incident.reporterName }}</span>
+        </div>
+
+        <div class="action-buttons">
+
+            <button class="btn-action btn-dark" (click)="viewDetails.emit(incident.id)">
+                View Details
+            </button>
+
+            @if (canAssign()) {
+            <button class="btn-action btn-yellow" (click)="assignToMe.emit(incident.id)">
+                Assign to Me
+            </button>
+            }
+
+            @if (incident.documentUrl) {
+            <button class="btn-action btn-blue" (click)="openDocument()">
+                View File
+            </button>
+            }
+
+        </div>
+    </div>
+
+</div>

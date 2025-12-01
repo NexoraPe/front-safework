@@ -14,6 +14,9 @@ import { IamStore } from '../../../../IAM/application/iam.store';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateIncidentDialogComponent } from '../../components/create-incident-dialog/create-incident-dialog.component';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { IncidentDetailsDialogComponent } from '../../components/incident-details-dialog/incident-details-dialog.component';
+
 import { User } from '../../../../IAM/domain/model/user.model'; // Importa tu modelo User
 
 @Component({
@@ -26,6 +29,7 @@ import { User } from '../../../../IAM/domain/model/user.model'; // Importa tu mo
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
+    MatDialogModule,
   ],
   templateUrl: './incidents-list.html',
   styleUrls: ['./incidents-list.css']
@@ -136,9 +140,18 @@ export class IncidentsList implements OnInit {
 
   // --- ACCIONES QUE VIENEN DEL CARD ---
 
-  onViewDetails(id: number) {
-    console.log('Navegar a detalles:', id);
-    // this.router.navigate(['/incidents', id]); // Descomentar cuando tengas la ruta
+  onViewDetails(incidentId: number) {
+    // 1. Buscamos el incidente en nuestro array local (no gastamos API call)
+    const selectedIncident = this.incidents.find(inc => inc.id === incidentId);
+
+    if (selectedIncident) {
+      // 2. Abrimos el diálogo pasándole los datos
+      this.dialog.open(IncidentDetailsDialogComponent, {
+        width: '600px', // Ancho cómodo
+        data: selectedIncident, // Pasamos el objeto entero
+        autoFocus: false // Evita que el primer botón se seleccione feo
+      });
+    }
   }
 
   onUpdateStatus(id: number) {

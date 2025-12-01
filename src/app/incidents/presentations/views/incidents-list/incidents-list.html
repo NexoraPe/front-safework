@@ -1,62 +1,61 @@
-<div class="incidents-container">
-  <div class="banner-header">
-    <div class="banner-content">
-      <h1 class="banner-title">Incidents Dashboard</h1>
-      <div class="header-actions">
-        <button mat-raised-button color="primary" (click)="openCreateDialog()">
-          <mat-icon>add</mat-icon> NEW INCIDENT
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="page-layout">
 
-  <div class="filters-container">
-    <div class="filter-group">
+  <header class="dark-header">
+    <div class="header-content">
+      <h1>List of Incidents</h1>
+
+      <button mat-flat-button class="btn-create" (click)="openCreateDialog()">
+        <mat-icon>add</mat-icon> Create Report
+      </button>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <div class="filters-card">
       <h3>Filter by Status</h3>
 
-      <mat-checkbox [checked]="isAllSelected()" (change)="toggleSelectAll($event.checked)" color="primary">
-        Select All
-      </mat-checkbox>
-
-      <div class="status-options">
-        @for (option of statusOptions; track option.value) {
-        <mat-checkbox [checked]="selectedStatuses.includes(option.value)"
-          (change)="toggleStatus(option.value, $event.checked)" [color]="option.color">
-          {{ option.label }}
+      <div class="filters-wrapper">
+        <mat-checkbox [checked]="isAllSelected()" (change)="toggleSelectAll($event.checked)" class="custom-checkbox">
+          Select All
         </mat-checkbox>
-        }
+
+        <div class="status-group">
+          @for (option of statusOptions; track option.value) {
+          <mat-checkbox [checked]="selectedStatuses.includes(option.value)"
+            (change)="toggleStatus(option.value, $event.checked)" [class]="'checkbox-' + option.value.toLowerCase()">
+            {{ option.label }}
+          </mat-checkbox>
+          }
+        </div>
+
+        <div class="mine-toggle">
+          <mat-checkbox [(ngModel)]="showOnlyMine" (change)="toggleMyIncidents($event.checked)">
+            Show Only My Incidents
+          </mat-checkbox>
+        </div>
       </div>
     </div>
 
-    <div class="filter-group right">
-      <mat-checkbox [(ngModel)]="showOnlyMine" (change)="toggleMyIncidents($event.checked)">
-        Show Only My Incidents
-      </mat-checkbox>
-    </div>
-  </div>
+    <div class="incidents-stack">
+      @if (isLoading) {
+      <div class="loading-state">Loading incidents...</div>
+      } @else if (error) {
+      <div class="error-state">{{ error }}</div>
+      } @else {
 
-  <div class="main-content">
-    @if (isLoading) {
-    <div class="loading-state">
-      <p>Loading incidents...</p>
-    </div>
-    } @else if (error) {
-    <div class="error-state">
-      <p>{{ error }}</p>
-    </div>
-    } @else {
-    <div class="incidents-grid">
       @for (incident of filteredIncidents; track incident.id) {
       <app-incident-card [incident]="incident" [currentUser]="currentUser" (viewDetails)="onViewDetails($event)"
-        (updateStatus)="onUpdateStatus($event)" (assignToMe)="onAssignToMe($event)"></app-incident-card>
+        (assignToMe)="onAssignToMe($event)">
+      </app-incident-card>
       } @empty {
-      <div class="empty-state">
-        <p>No incidents found matching your filters.</p>
-      </div>
+      <div class="empty-state">No incidents found.</div>
+      }
+
       }
     </div>
-    }
-  </div>
+
+  </main>
 
   <footer class="app-footer">
     <p>© 2025 SafeWork. Todos los derechos reservados.</p>
