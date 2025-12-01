@@ -45,6 +45,8 @@
     "title": "Analytics",
     "open": "Open",
     "openDescription": "Incidents newly reported, pending action.",
+    "assigned": "Assigned",
+    "assignedDescription": "Incidents assigned to a worker, pending start.",
     "inProgress": "In Progress",
     "inProgressDescription": "Incidents actively being handled by teams.",
     "closed": "Closed",

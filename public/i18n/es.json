@@ -45,6 +45,8 @@
     "title": "Analíticas",
     "open": "Abierto",
     "openDescription": "Incidentes recién reportados, pendientes de acción.",
+    "assigned": "Asignado",
+    "assignedDescription": "Incidentes asignados a un trabajador, pendientes de inicio.",
     "inProgress": "En Progreso",
     "inProgressDescription": "Incidentes que están siendo manejados activamente por los equipos.",
     "closed": "Cerrado",

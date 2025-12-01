@@ -1,102 +1,135 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BaseChartDirective} from 'ng2-charts';
-import {ChartData, ChartOptions} from "chart.js";
-import { TranslatePipe, TranslateService} from '@ngx-translate/core';
-import {AnalyticsService} from "../../../services/analytics.service";
-import {Subscription} from "rxjs";
-import {AnalyticsData} from "../../../services/analytics.service";
-import {NgIf} from "@angular/common";
-import {AnalyticCard} from '../../components/analytic-card/analytic-card';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartData, ChartOptions } from 'chart.js';
+import { AnalyticsService } from '../../../services/analytics.service';
+import { AnalyticCard } from '../../components/analytic-card/analytic-card'; // Asegúrate de actualizar este componente también si es necesario
+
+const COLORS = {
+  OPEN: '#FF5252',       // Rojo suave
+  ASSIGNED: '#FFC107',   // Ambar/Naranja
+  IN_PROGRESS: '#536DFE', // Indigo (Tu color de marca aprox)
+  CLOSED: '#00BFA5'      // Teal/Verde azulado
+};
 
 @Component({
   selector: 'app-analytics',
-  imports: [
-    BaseChartDirective,
-    TranslatePipe,
-    NgIf,
-    AnalyticCard
-  ],
+  standalone: true,
+  imports: [CommonModule, BaseChartDirective, TranslateModule, AnalyticCard],
   templateUrl: './analytics.html',
-  styleUrl: './analytics.css'
+  styleUrls: ['./analytics.css']
 })
-export class Analytics implements OnInit, OnDestroy {
+export class Analytics implements OnInit {
+  private analyticsService = inject(AnalyticsService);
+  private translate = inject(TranslateService);
+
+  loading = true;
+
+  // Opciones visuales
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
+    plugins: {
+      legend: { position: 'bottom' }
+    }
   };
+
   public pieChartData: ChartData<'pie'> = {
     labels: [],
-    datasets: [ {
+    datasets: [{
       data: [],
-      backgroundColor: [ '#D9D9D9', '#7B7DC1', '#0D0C22' ]
-    } ]
+      // Usamos la nueva paleta armónica
+      backgroundColor: [COLORS.OPEN, COLORS.ASSIGNED, COLORS.IN_PROGRESS, COLORS.CLOSED],
+      hoverBackgroundColor: [COLORS.OPEN, COLORS.ASSIGNED, COLORS.IN_PROGRESS, COLORS.CLOSED],
+      borderWidth: 0 // Quitamos bordes blancos para que se vea más flat/moderno
+    }]
   };
-  public loading = true;
-  private langChangeSubscription: Subscription | undefined;
-  private dataSubscription: Subscription | undefined;
-  public analyticsOptions: { title: string; percentage: string; description: string; }[] = [];
 
-  constructor(private translate: TranslateService, private analyticsService: AnalyticsService) {}
+  // Datos para las tarjetas descriptivas
+  public analyticsOptions: any[] = [];
 
   ngOnInit(): void {
-    this.loadChartData();
-    this.langChangeSubscription = this.translate.onLangChange.subscribe(() => {
-      this.setChartLabels();
+    this.loadData();
+
+    // Escuchar cambio de idioma
+    this.translate.onLangChange.subscribe(() => {
+      this.updateLabels();
     });
   }
 
-  ngOnDestroy(): void {
-    if (this.langChangeSubscription) {
-      this.langChangeSubscription.unsubscribe();
-    }
-    if (this.dataSubscription) {
-      this.dataSubscription.unsubscribe();
-    }
-  }
-
-  loadChartData(): void {
+  loadData(): void {
     this.loading = true;
-    this.dataSubscription = this.analyticsService.getAnalyticsData().subscribe({
-      next: (data) => {
-        this.pieChartData.datasets[0].data = [data.open.count, data.in_progress.count, data.closed.count];
-        this.updateAnalyticsOptions(data);
-        this.setChartLabels();
+    this.analyticsService.getAnalytics().subscribe({
+      next: (response) => {
+        const data = response.analytics; // Accedemos a la propiedad raíz
+
+        // Asignamos datos al gráfico (Orden: Open, Assigned, InProgress, Closed)
+        this.pieChartData.datasets[0].data = [
+          data.open.count,
+          data.assigned.count,
+          data.in_progress.count,
+          data.closed.count
+        ];
+
+        // Preparamos las tarjetas
+        this.analyticsOptions = [
+          {
+            title: 'analytics.open',
+            count: data.open.count,
+            percentage: data.open.percentage,
+            description: 'analytics.openDescription',
+            color: COLORS.OPEN // <--- Pasamos el color
+          },
+          {
+            title: 'analytics.assigned',
+            count: data.assigned.count,
+            percentage: data.assigned.percentage,
+            description: 'analytics.assignedDescription',
+            color: COLORS.ASSIGNED
+          },
+          {
+            title: 'analytics.inProgress',
+            count: data.in_progress.count,
+            percentage: data.in_progress.percentage,
+            description: 'analytics.inProgressDescription',
+            color: COLORS.IN_PROGRESS
+          },
+          {
+            title: 'analytics.closed',
+            count: data.closed.count,
+            percentage: data.closed.percentage,
+            description: 'analytics.closedDescription',
+            color: COLORS.CLOSED
+          }
+        ];
+
+        this.updateLabels();
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error fetching analytics data', err);
+        console.error('Error:', err);
         this.loading = false;
       }
     });
   }
 
-  setChartLabels(): void {
-    this.translate.get(['analytics.open', 'analytics.inProgress', 'analytics.closed']).subscribe(translations => {
+  updateLabels(): void {
+    // Traducciones síncronas si ya están cargadas, o usas get().subscribe
+    this.translate.get([
+      'analytics.open',
+      'analytics.assigned',
+      'analytics.inProgress',
+      'analytics.closed'
+    ]).subscribe(res => {
       this.pieChartData = {
-        ...this.pieChartData,
+        ...this.pieChartData, // Inmutabilidad para refrescar chart
         labels: [
-          translations['analytics.open'],
-          translations['analytics.inProgress'],
-          translations['analytics.closed']
+          res['analytics.open'],
+          res['analytics.assigned'],
+          res['analytics.inProgress'],
+          res['analytics.closed']
         ]
       };
-      // Esto crea un nuevo objeto para asegurar la detección de cambios
     });
-  }
-
-  updateAnalyticsOptions(data: AnalyticsData): void {
-    const total = data.open.count + data.in_progress.count + data.closed.count;
-
-    const calculatePercentage = (count: number) => {
-      if (total === 0) {
-        return '0';
-      }
-      return Math.round((count / total) * 100).toString();
-    };
-
-    this.analyticsOptions = [
-      { title: 'analytics.open', percentage: calculatePercentage(data.open.count), description: 'analytics.openDescription' },
-      { title: 'analytics.inProgress', percentage: calculatePercentage(data.in_progress.count), description: 'analytics.inProgressDescription' },
-      { title: 'analytics.closed', percentage: calculatePercentage(data.closed.count), description: 'analytics.closedDescription' }
-    ];
   }
 }

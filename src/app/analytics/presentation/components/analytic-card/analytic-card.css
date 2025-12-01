@@ -1,32 +1,77 @@
-mat-card{
-  background-color: #ACADD8;
-
-  flex: 0 0 calc(50% - 200px); /* Adjusted to take up half the width */
-
-  font-family: Poppins, sans-serif;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 1rem;
-}
-
-mat-card-title {
-  font-size: 2em;
-  font-weight: 500;
-}
-
-mat-card-content {
-  font-size: 1.5em;
-}
+/* analytic-card.css */
 
 .analytics-grid {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  gap: 50px;
-
+  flex-direction: column;
+  /* En lista vertical se leen mejor junto al gráfico */
+  gap: 20px;
+  width: 100%;
 }
 
+.stat-card {
+  background-color: white;
+  /* Limpio */
+  border-radius: 12px !important;
+  padding: 10px 16px !important;
 
+  /* El truco del borde de color */
+  border-left-width: 6px;
+  border-left-style: solid;
+  /* El color viene del HTML dinámicamente */
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateX(5px);
+  /* Efecto interactivo sutil */
+}
+
+/* Header limpio */
+mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 !important;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-size: 1.1rem !important;
+  /* Tamaño controlado */
+  font-weight: 600 !important;
+  color: #333;
+  margin: 0;
+}
+
+.percentage-badge {
+  font-size: 1.5rem;
+  /* El número destaca */
+  font-weight: 800;
+  /* El color se aplica inline en el HTML */
+}
+
+mat-card-content {
+  padding: 0 !important;
+  font-family: 'Poppins', sans-serif;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 5px 0;
+  line-height: 1.4;
+}
+
+.count-label {
+  font-size: 0.85rem;
+  color: #999;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+strong {
+  color: #333;
+}
